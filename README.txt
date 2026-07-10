@@ -40,7 +40,7 @@ BEFORE YOU UPLOAD
 
 WHEN YOU GET A DOMAIN (or know your GitHub Pages URL)
 ---------------------------------------------------------
-Every page has "https://affanrunsads.netlify.app/" hardcoded in:
+Every page has "https://affanrunsads.github.io/metaportfolio/" hardcoded in:
   - the <link rel="canonical"> tag
   - the <meta property="og:url"> and og:image tags
   - the JSON-LD schema "url" fields
@@ -88,7 +88,7 @@ HOW TO DEPLOY ON GITHUB PAGES (step by step)
      about.html, portfolio.html, mentorship.html, contact.html,
      sitemap.xml, and robots.txt.
    - Replace every instance of
-     "https://affanrunsads.netlify.app/" with your real GitHub Pages
+     "https://affanrunsads.github.io/metaportfolio/" with your real GitHub Pages
      URL (e.g. "https://yourusername.github.io/affanrunsads/").
    - You can edit files directly on GitHub: open the file, click the
      pencil (Edit) icon, use Ctrl+F / Cmd+F in your browser if needed,

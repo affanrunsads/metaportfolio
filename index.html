@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--
+        IMPORTANT — before you go live:
+        1. Once you buy a domain, replace every "https://affanrunsads.netlify.app/" below
+           (canonical + og:url + JSON-LD "url") with your real domain.
+        2. Add your photo at images/profile.png (same filename as before).
+        3. Add real reel videos to /videos/ (see script.js REELS array) or swap in
+           Instagram embed URLs — see comments there.
+    -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>Affan Runs Ads | Muhammad Affan Khan — Meta Ads Specialist & Performance Marketer</title>
+    <meta name="description" content="Affan runs ads — helping e-commerce, SaaS and digital brands scale profitably through Meta &amp; Google Ads. $0.02 CPR, 11% CTR, 5+ ROAS. View case studies, reels, and mentorship results.">
+    <meta name="keywords" content="Affan Runs Ads, affanrunsads, Muhammad Affan Khan, Meta Ads Specialist, Facebook Ads Expert, Performance Marketer, Paid Ads Mentor">
+    <link rel="canonical" href="https://affanrunsads.netlify.app/">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="profile">
+    <meta property="og:title" content="Affan Runs Ads | Meta Ads Specialist & Performance Marketer">
+    <meta property="og:description" content="Affan runs ads — helping brands scale through Meta &amp; Google Ads. View case studies, reels, and mentorship results.">
+    <meta property="og:url" content="https://affanrunsads.netlify.app/">
+    <meta property="og:image" content="https://affanrunsads.netlify.app/images/profile.png">
+    <meta property="og:site_name" content="Affan Runs Ads">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Affan Runs Ads | Meta Ads Specialist">
+    <meta name="twitter:description" content="Affan runs ads — helping brands scale through Meta &amp; Google Ads.">
+    <meta name="twitter:image" content="https://affanrunsads.netlify.app/images/profile.png">
+
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- JSON-LD: Person schema — the core signal for AI Overview / Knowledge Graph -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Muhammad Affan Khan",
+      "alternateName": "Affan Runs Ads",
+      "description": "Affan runs ads for e-commerce and SaaS brands, specializing in Meta and Google Ads with a track record of sub-$0.02 cost-per-result campaigns.",
+      "jobTitle": "Meta Ads Specialist & Performance Marketer",
+      "url": "https://affanrunsads.netlify.app/",
+      "image": "https://affanrunsads.netlify.app/images/profile.png",
+      "email": "mailto:affanrunsads@gmail.com",
+      "sameAs": [
+        "https://www.instagram.com/affanrunsads/",
+        "https://pk.linkedin.com/in/muhammadaffankhan01"
+      ]
+    }
+    </script>
+    <!-- JSON-LD: WebSite schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Affan Runs Ads",
+      "url": "https://affanrunsads.netlify.app/"
+    }
+    </script>
+</head>
+<body>
+    <!-- Preloader -->
+    <div class="preloader"><div class="loader"></div></div>
+
+    <!-- Particles Background -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <a href="index.html" class="logo">AFFAN RUNS ADS</a>
+        <div class="menu-toggle" onclick="toggleMenu()">
+            <span></span><span></span><span></span>
+        </div>
+        <div class="nav-right">
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html" class="active" onclick="closeMenu()">Home</a></li>
+                <li><a href="about.html" onclick="closeMenu()">About</a></li>
+                <li><a href="portfolio.html" onclick="closeMenu()">Portfolio &amp; Reels</a></li>
+                <li><a href="mentorship.html" onclick="closeMenu()">Mentorship</a></li>
+                <li><a href="contact.html" onclick="closeMenu()">Contact</a></li>
+                <li class="mobile-social">
+                    <a href="https://www.instagram.com/affanrunsads/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.9.07 3.3.15 4.8 1.7 4.96 4.96.06 1.3.07 1.6.07 4.77s-.01 3.47-.07 4.77c-.15 3.25-1.65 4.8-4.96 4.96-1.3.06-1.6.07-4.9.07s-3.6-.01-4.9-.07c-3.32-.15-4.8-1.72-4.96-4.96-.06-1.3-.07-1.6-.07-4.77s.01-3.47.07-4.77C2.29 3.97 3.8 2.42 7.1 2.27 8.4 2.21 8.8 2.2 12 2.2zm0 1.8c-3.15 0-3.5.01-4.73.07-2.4.11-3.4 1.13-3.51 3.51-.06 1.23-.07 1.58-.07 4.73s.01 3.5.07 4.73c.11 2.38 1.11 3.4 3.51 3.51 1.23.06 1.58.07 4.73.07s3.5-.01 4.73-.07c2.39-.11 3.4-1.12 3.51-3.51.06-1.23.07-1.58.07-4.73s-.01-3.5-.07-4.73c-.11-2.38-1.12-3.4-3.51-3.51-1.23-.06-1.58-.07-4.73-.07zm0 3.06a4.94 4.94 0 1 1 0 9.88 4.94 4.94 0 0 1 0-9.88zm0 1.8a3.14 3.14 0 1 0 0 6.28 3.14 3.14 0 0 0 0-6.28zm5.13-1.99a1.15 1.15 0 1 1-2.3 0 1.15 1.15 0 0 1 2.3 0z"/></svg></a>
+                    <a href="https://pk.linkedin.com/in/muhammadaffankhan01" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.11 20.45H3.56V9h3.55v11.45z"/></svg></a>
+                </li>
+            </ul>
+            <div class="social-icons">
+                <a href="https://www.instagram.com/affanrunsads/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.9.07 3.3.15 4.8 1.7 4.96 4.96.06 1.3.07 1.6.07 4.77s-.01 3.47-.07 4.77c-.15 3.25-1.65 4.8-4.96 4.96-1.3.06-1.6.07-4.9.07s-3.6-.01-4.9-.07c-3.32-.15-4.8-1.72-4.96-4.96-.06-1.3-.07-1.6-.07-4.77s.01-3.47.07-4.77C2.29 3.97 3.8 2.42 7.1 2.27 8.4 2.21 8.8 2.2 12 2.2zm0 1.8c-3.15 0-3.5.01-4.73.07-2.4.11-3.4 1.13-3.51 3.51-.06 1.23-.07 1.58-.07 4.73s.01 3.5.07 4.73c.11 2.38 1.11 3.4 3.51 3.51 1.23.06 1.58.07 4.73.07s3.5-.01 4.73-.07c2.39-.11 3.4-1.12 3.51-3.51.06-1.23.07-1.58.07-4.73s-.01-3.5-.07-4.73c-.11-2.38-1.12-3.4-3.51-3.51-1.23-.06-1.58-.07-4.73-.07zm0 3.06a4.94 4.94 0 1 1 0 9.88 4.94 4.94 0 0 1 0-9.88zm0 1.8a3.14 3.14 0 1 0 0 6.28 3.14 3.14 0 0 0 0-6.28zm5.13-1.99a1.15 1.15 0 1 1-2.3 0 1.15 1.15 0 0 1 2.3 0z"/></svg></a>
+                <a href="https://pk.linkedin.com/in/muhammadaffankhan01" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.11 20.45H3.56V9h3.55v11.45z"/></svg></a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <div class="hero-text">
+                <span class="hero-subtitle">Meta Ads Specialist</span>
+                <h1 class="hero-title">
+                    Affan Runs Ads
+                    <span>Muhammad Affan Khan — Performance Marketer &amp; Growth Strategist</span>
+                </h1>
+                <p class="hero-description">
+                    Results-driven specialist with a proven track record of scaling high-performance Facebook and Instagram campaigns. Achieving CPR as low as $0.02 and CTR up to 11% across global markets. Affan runs ads — and mentors others to run them too.
+                </p>
+                <div class="hero-buttons">
+                    <a href="contact.html" class="btn btn-primary">Work With Me</a>
+                    <a href="portfolio.html" class="btn">View Reels &amp; Case Studies</a>
+                </div>
+            </div>
+            <div class="hero-image-container">
+                <div class="profile-image-wrapper">
+                    <div class="profile-glow"></div>
+                    <div class="profile-ring"></div>
+                    <img src="images/profile.png" alt="Muhammad Affan Khan — Affan Runs Ads" class="profile-image">
+                </div>
+            </div>
+        </div>
+        <div class="stats-bar">
+            <div class="stat-item"><span class="stat-number">$0.02</span><span class="stat-label">Lowest CPR</span></div>
+            <div class="stat-item"><span class="stat-number">11%</span><span class="stat-label">Peak CTR</span></div>
+            <div class="stat-item"><span class="stat-number">5+</span><span class="stat-label">Average ROAS</span></div>
+            <div class="stat-item"><span class="stat-number">Global</span><span class="stat-label">Client Base</span></div>
+        </div>
+    </section>
+
+    <!-- About Preview -->
+    <section class="about" id="about">
+        <div class="section-header">
+            <span class="section-subtitle">Who Is Affan</span>
+            <h2 class="section-title">Affan Runs Ads For Brands That Want To Scale</h2>
+        </div>
+        <div class="about-content">
+            <div class="about-text">
+                <p>
+                    I'm <span class="highlight">Muhammad Affan Khan</span> — known online as <span class="highlight">Affan Runs Ads</span>. I specialize in full-funnel advertising strategies that turn browsers into buyers for e-commerce, digital products, and service-based businesses.
+                </p>
+                <p>
+                    From cold acquisition to retargeting, I build Meta Ads ecosystems that scale profitably — and I teach the same system to mentees who are now running their own profitable accounts as part of my team.
+                </p>
+                <a href="about.html" class="view-all-link">Read my full story →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reels Preview -->
+    <section class="reels-preview" id="reels-preview">
+        <div class="section-header">
+            <span class="section-subtitle">Watch</span>
+            <h2 class="section-title">Reels, Reviews &amp; Case Studies</h2>
+        </div>
+        <div class="reels-preview-grid" id="reelsPreviewGrid"></div>
+        <div class="section-center">
+            <a href="portfolio.html" class="view-all-link">View all reels →</a>
+        </div>
+    </section>
+
+    <!-- Mentorship Teaser -->
+    <section class="mentorship-teaser" style="background: var(--black-light);">
+        <div class="section-header">
+            <span class="section-subtitle">Mentorship</span>
+            <h2 class="section-title">I Teach What I Practice</h2>
+        </div>
+        <p class="mentorship-intro">
+            My mentees don't just learn theory — they get hands-on training and go on to run real ad accounts, many now earning consistently as part of my team. If you want to learn paid ads the right way, this is where you start.
+        </p>
+        <div class="section-center" style="margin-top: 2rem;">
+            <a href="mentorship.html" class="btn btn-primary" style="width: auto; display: inline-block;">Explore Mentorship</a>
+        </div>
+    </section>
+
+    <!-- Metrics Section -->
+    <section class="metrics-section" id="metrics">
+        <div class="section-header">
+            <span class="section-subtitle">Track Record</span>
+            <h2 class="section-title">Performance Highlights</h2>
+        </div>
+        <div class="metrics">
+            <div class="metric-card"><span class="metric-icon">💰</span><div class="metric-value">$0.02</div><div class="metric-label">Cost Per Result</div></div>
+            <div class="metric-card"><span class="metric-icon">📊</span><div class="metric-value">11%</div><div class="metric-label">Click-Through Rate</div></div>
+            <div class="metric-card"><span class="metric-icon">🚀</span><div class="metric-value">5+</div><div class="metric-label">Average ROAS</div></div>
+            <div class="metric-card"><span class="metric-icon">🌍</span><div class="metric-value">Global</div><div class="metric-label">Market Reach</div></div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-inner">
+            <span class="footer-logo">AFFAN RUNS ADS</span>
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="portfolio.html">Portfolio</a>
+                <a href="mentorship.html">Mentorship</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="social-icons">
+                <a href="https://www.instagram.com/affanrunsads/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.9.07 3.3.15 4.8 1.7 4.96 4.96.06 1.3.07 1.6.07 4.77s-.01 3.47-.07 4.77c-.15 3.25-1.65 4.8-4.96 4.96-1.3.06-1.6.07-4.9.07s-3.6-.01-4.9-.07c-3.32-.15-4.8-1.72-4.96-4.96-.06-1.3-.07-1.6-.07-4.77s.01-3.47.07-4.77C2.29 3.97 3.8 2.42 7.1 2.27 8.4 2.21 8.8 2.2 12 2.2zm0 1.8c-3.15 0-3.5.01-4.73.07-2.4.11-3.4 1.13-3.51 3.51-.06 1.23-.07 1.58-.07 4.73s.01 3.5.07 4.73c.11 2.38 1.11 3.4 3.51 3.51 1.23.06 1.58.07 4.73.07s3.5-.01 4.73-.07c2.39-.11 3.4-1.12 3.51-3.51.06-1.23.07-1.58.07-4.73s-.01-3.5-.07-4.73c-.11-2.38-1.12-3.4-3.51-3.51-1.23-.06-1.58-.07-4.73-.07zm0 3.06a4.94 4.94 0 1 1 0 9.88 4.94 4.94 0 0 1 0-9.88zm0 1.8a3.14 3.14 0 1 0 0 6.28 3.14 3.14 0 0 0 0-6.28zm5.13-1.99a1.15 1.15 0 1 1-2.3 0 1.15 1.15 0 0 1 2.3 0z"/></svg></a>
+                <a href="https://pk.linkedin.com/in/muhammadaffankhan01" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.11 20.45H3.56V9h3.55v11.45z"/></svg></a>
+            </div>
+            <p class="footer-text">© 2026 <span>Affan Runs Ads</span> — Muhammad Affan Khan. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

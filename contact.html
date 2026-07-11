@@ -76,80 +76,68 @@
 
     <section class="contact" id="contact">
         <div class="contact-content">
-            <!--
-                This is a static HTML site, so this form uses a mailto: action —
-                it opens the visitor's email app with the message pre-filled.
-                For a form that submits without opening email, connect a service
-                like Formspree or Netlify Forms (Netlify Forms just needs a
-                `data-netlify="true"` attribute added to this <form> tag).
-            -->
-            <div class="contact-form-wrapper">
-                <form class="contact-form" id="contactForm" novalidate>
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" id="name" name="Name" required placeholder="Your full name">
-                        <span class="error-text">Please enter your name</span>
+            <div id="contactFormContainer" style="width: 100%; max-width: 600px;">
+                <!--
+                    This is a static HTML site, so this form uses a mailto: action —
+                    it opens the visitor's email app with the message pre-filled.
+                    For a form that submits without opening email, connect a service
+                    like Formspree or Netlify Forms (Netlify Forms just needs a
+                    `data-netlify="true"` attribute added to this <form> tag).
+                -->
+                <form class="contact-form" id="contact-form" action="mailto:affanrunsads@gmail.com" method="post" enctype="text/plain" novalidate>
+                    <div class="form-group" id="group-name">
+                        <label for="contact-name">Name</label>
+                        <input type="text" id="contact-name" name="Name" placeholder="Your full name" required>
+                        <span class="error-msg" id="error-name">Please enter your name</span>
+                    </div>
+                    <div class="form-group" id="group-email">
+                        <label for="contact-email">Email</label>
+                        <input type="email" id="contact-email" name="Email" placeholder="Your email address" required>
+                        <span class="error-msg" id="error-email">Please enter a valid email address</span>
                     </div>
                     <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="Email" required placeholder="Your email address">
-                        <span class="error-text">Please enter a valid email address</span>
-                    </div>
-                    <div class="form-group">
-                        <label for="interest">I'm interested in</label>
-                        <select id="interest" name="Interest">
+                        <label for="contact-interest">I'm interested in</label>
+                        <select id="contact-interest" name="Interest">
                             <option>Meta Ads Management</option>
                             <option>Mentorship Program</option>
                             <option>Something Else</option>
                         </select>
                     </div>
-                    <div class="form-group">
-                        <label for="message">Message</label>
-                        <textarea id="message" name="Message" required placeholder="Tell me about your business or what you'd like to learn..."></textarea>
-                        <span class="error-text">Please enter your message</span>
+                    <div class="form-group" id="group-message">
+                        <label for="contact-message">Message</label>
+                        <textarea id="contact-message" name="Message" required placeholder="Tell me about your business or what you'd like to learn..."></textarea>
+                        <span class="error-msg" id="error-message">Please enter your message</span>
                     </div>
-                    <button type="submit" id="formSubmitBtn" class="btn btn-primary">
-                        <span class="btn-text">Send Message</span>
-                        <span class="btn-loader" style="display: none;"><span class="spinner"></span></span>
-                    </button>
+                    <button type="submit" class="btn btn-primary btn-shimmer">Send Message</button>
                     <p class="form-note">This formats your email and launches your mail client automatically.</p>
                 </form>
-
-                <div class="success-message-card" id="successCard" style="display: none;">
-                    <div class="success-icon-badge">✨</div>
-                    <h3>Inquiry Formatted!</h3>
-                    <p>I have built and encoded your inquiry email. Your device's mail app should open immediately to send it.</p>
-                    <p class="success-detail">If your email client didn't launch automatically, click the button below to trigger it manually.</p>
-                    <div class="success-actions">
-                        <a id="successMailtoLink" href="#" class="btn btn-primary">Open Mail Application</a>
-                        <button id="successResetBtn" class="btn btn-secondary">Send Another Message</button>
-                    </div>
-                </div>
             </div>
 
             <div class="contact-links">
-                <a href="mailto:affanrunsads@gmail.com" class="contact-item contact-item-copyable">
+                <div class="contact-item" id="contact-email-card" title="Click icon to copy, card to email">
                     <span class="contact-icon">✉️</span>
                     <div class="contact-info">
                         <h4>Email</h4>
-                        <p id="contact-email-text">affanrunsads@gmail.com</p>
+                        <p>affanrunsads@gmail.com</p>
                     </div>
-                    <button class="copy-badge-btn" data-copy="affanrunsads@gmail.com" aria-label="Copy email" title="Copy email">
-                        <svg class="copy-svg" viewBox="0 0 24 24" width="16" height="16"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z" fill="currentColor"/></svg>
+                    <button class="copy-btn" id="copyEmailBtn" aria-label="Copy Email Address">
+                        <svg viewBox="0 0 24 24" width="16" height="16"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z" fill="currentColor"/></svg>
                         <span class="copy-tooltip">Copy</span>
                     </button>
-                </a>
-                <a href="tel:+923302617263" class="contact-item contact-item-copyable">
+                </div>
+                
+                <div class="contact-item" id="contact-phone-card" title="Click icon to copy, card to call">
                     <span class="contact-icon">📱</span>
                     <div class="contact-info">
                         <h4>Phone</h4>
-                        <p id="contact-phone-text">+92 330 2617263</p>
+                        <p>+92 330 2617263</p>
                     </div>
-                    <button class="copy-badge-btn" data-copy="+923302617263" aria-label="Copy phone number" title="Copy phone number">
-                        <svg class="copy-svg" viewBox="0 0 24 24" width="16" height="16"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z" fill="currentColor"/></svg>
+                    <button class="copy-btn" id="copyPhoneBtn" aria-label="Copy Phone Number">
+                        <svg viewBox="0 0 24 24" width="16" height="16"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z" fill="currentColor"/></svg>
                         <span class="copy-tooltip">Copy</span>
                     </button>
-                </a>
+                </div>
+
                 <a href="https://www.instagram.com/affanrunsads/" target="_blank" rel="noopener" class="contact-item">
                     <span class="contact-icon">📷</span>
                     <div class="contact-info"><h4>Instagram</h4><p>@affanrunsads</p></div>

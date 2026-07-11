@@ -538,6 +538,7 @@ section { padding: var(--section-padding); position: relative; width: 100%; }
 .contact-item {
     display: flex; align-items: center; gap: 1rem;
     padding: 1.25rem;
+    padding-right: 4rem;
     background: rgba(212, 175, 55, 0.05);
     border: 1px solid rgba(212, 175, 55, 0.2);
     transition: all 0.3s ease;
@@ -864,7 +865,7 @@ footer { background: var(--black); padding: 3rem 1rem 2rem; text-align: center; 
     .skills-grid { grid-template-columns: repeat(2, 1fr); }
     .metrics { grid-template-columns: repeat(2, 1fr); }
     .contact-links { flex-direction: row; justify-content: center; flex-wrap: wrap; }
-    .contact-item { width: auto; min-width: 280px; }
+    .contact-item { width: auto; min-width: 350px; }
 
     .page-hero { padding: 10rem 2rem 4rem; }
     .page-hero-title { font-size: 3.25rem; }

@@ -65,7 +65,7 @@ const staggerGroups = [
     { parent: '.reels-grid', child: '.reel-card', delay: 80 },
     { parent: '.reels-preview-grid', child: '.reel-card', delay: 80 },
     { parent: '.benefits-grid', child: '.benefit-card', delay: 100 },
-    { parent: '.testimonials-grid', child: '.testimonial-card', delay: 150 },
+    { parent: '.testimonials-carousel-container', child: '.testimonial-card', delay: 150 },
 ];
 
 const observer = new IntersectionObserver((entries) => {
@@ -85,7 +85,7 @@ const observer = new IntersectionObserver((entries) => {
 }, observerOptions);
 
 document.querySelectorAll(
-    '.section-header, .about-text, .skills-grid, .metrics, .timeline, .contact-links, .reels-grid, .reels-preview-grid, .benefits-grid, .testimonials-grid, .contact-form'
+    '.section-header, .about-text, .skills-grid, .metrics, .timeline, .contact-links, .reels-grid, .reels-preview-grid, .benefits-grid, .testimonials-carousel-container, .contact-form'
 ).forEach(el => observer.observe(el));
 
 // Floating particles

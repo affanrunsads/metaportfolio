@@ -1213,7 +1213,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     padding: 0 1rem;
     box-sizing: border-box;
 }
-.carousel-nav-wrapper {
+.carousel-nav-wrapper,
+.carousel-controls {
     display: flex;
     justify-content: center;
     align-items: center;

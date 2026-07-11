@@ -938,6 +938,104 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     outline-offset: 2px;
 }
 
+/* Back to Top button styling */
+.back-to-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background: var(--black-light);
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s ease, transform 0.4s ease, background-color 0.4s ease;
+    z-index: 9999;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5), 0 0 10px rgba(212, 175, 55, 0.1);
+}
+.back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+}
+.back-to-top:hover {
+    background: var(--gold);
+    color: var(--black);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
+}
+
+/* Custom premium styles for Case Studies Page Grid */
+.case-studies-grid {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation-delay: 0.2s;
+}
+.case-study-card {
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease, box-shadow 0.4s ease;
+    background-image: radial-gradient(circle at top right, rgba(212, 175, 55, 0.03) 0%, transparent 60%);
+    position: relative;
+    overflow: hidden;
+}
+.case-study-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(600px circle at var(--mouse-x, 0) var(--mouse-y, 0), rgba(212, 175, 55, 0.05), transparent 40%);
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+.case-study-card:hover::before {
+    opacity: 1;
+}
+.case-study-card:hover {
+    transform: translateY(-6px) scale(1.01);
+    border-color: var(--gold) !important;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(212, 175, 55, 0.15) !important;
+}
+
+@media (min-width: 900px) {
+    .case-card-body {
+        grid-template-columns: 1.2fr 0.8fr !important;
+    }
+}
+
+/* FAQ active state styling classes */
+.faq-item.active {
+    border-color: var(--gold) !important;
+    box-shadow: 0 5px 15px rgba(212, 175, 55, 0.08);
+}
+.faq-item.active .faq-icon {
+    transform: rotate(45deg);
+    color: var(--gold-light) !important;
+}
+.faq-item.active .faq-answer {
+    padding: 0 1.5rem 1.5rem 1.5rem !important;
+}
+
+/* Premium micro-interactions: Neon Grid/Mesh Background Effect on specific sections */
+.about, .mentorship-teaser, .ads-calculator-section, .experience, .reels-preview, .case-studies-hub {
+    background-image:
+        linear-gradient(rgba(212, 175, 55, 0.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(212, 175, 55, 0.015) 1px, transparent 1px);
+    background-size: 40px 40px;
+    background-position: center;
+}
+
+/* Enhanced glow states */
+.skill-item:hover, .benefit-card:hover, .timeline-content:hover {
+    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.12);
+}
+
 /* ==========================================================================
    PREMIUM CUSTOM UPGRADES — JULES
    ========================================================================== */

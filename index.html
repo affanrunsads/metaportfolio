@@ -79,6 +79,7 @@
                 <li><a href="index.html" class="active" onclick="closeMenu()">Home</a></li>
                 <li><a href="about.html" onclick="closeMenu()">About</a></li>
                 <li><a href="portfolio.html" onclick="closeMenu()">Portfolio &amp; Reels</a></li>
+                <li><a href="case-studies.html" onclick="closeMenu()">Case Studies</a></li>
                 <li><a href="mentorship.html" onclick="closeMenu()">Mentorship</a></li>
                 <li><a href="contact.html" onclick="closeMenu()">Contact</a></li>
                 <li class="mobile-social">
@@ -255,6 +256,19 @@
                         </div>
                     </div>
 
+                    <!-- Visual Performance Meter Bars -->
+                    <div class="calc-meter-container" style="margin-bottom: 2rem; background: rgba(10,10,10,0.4); border: 1px solid rgba(255,255,255,0.05); padding: 1.25rem; border-radius: 6px;">
+                        <h4 style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px; color: #888; margin-bottom: 1rem;">Funnel Efficiency Level</h4>
+                        <div class="calc-meter-bar-wrapper" style="width: 100%; height: 8px; background: var(--black-lighter); border-radius: 4px; overflow: hidden; position: relative; margin-bottom: 0.5rem;">
+                            <div id="calcEfficiencyBar" style="width: 35%; height: 100%; background: linear-gradient(to right, #e74c3c, var(--gold), #2ecc71); transition: width 0.4s ease; box-shadow: 0 0 8px rgba(212,175,55,0.4);"></div>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: #666; font-weight: 600;">
+                            <span>Unprofitable</span>
+                            <span>Breakeven</span>
+                            <span>Primed to Scale</span>
+                        </div>
+                    </div>
+
                     <!-- Interactive Coach Tips box -->
                     <div class="calc-coach-tip" id="calc-coach-tip">
                         <p><strong>Affan's Optimization Tip:</strong> By decreasing CPC to <strong>$0.40</strong> and boosting conversion rates to <strong>3%</strong> (our benchmark), your estimated ROAS would jump to <strong>5.63x</strong> generating <strong>$56,250</strong> from the same budget!</p>
@@ -290,6 +304,7 @@
                 <a href="index.html">Home</a>
                 <a href="about.html">About</a>
                 <a href="portfolio.html">Portfolio</a>
+                <a href="case-studies.html">Case Studies</a>
                 <a href="mentorship.html">Mentorship</a>
                 <a href="contact.html">Contact</a>
             </div>

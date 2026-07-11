@@ -1,11 +1,30 @@
 // ==========================================================================
-// Affan Runs Ads — Shared Script
+// Affan Runs Ads â€” Shared Script
 // ==========================================================================
 
 // Preloader
 window.addEventListener('load', () => {
     const pre = document.querySelector('.preloader');
     if (pre) setTimeout(() => pre.classList.add('hidden'), 500);
+});
+
+// Dynamic Scroll Progress Bar Integration
+document.addEventListener('DOMContentLoaded', () => {
+    const progressContainer = document.createElement('div');
+    progressContainer.className = 'scroll-progress-container';
+    
+    const progressBar = document.createElement('div');
+    progressBar.className = 'scroll-progress-bar';
+    
+    progressContainer.appendChild(progressBar);
+    document.body.prepend(progressContainer);
+
+    window.addEventListener('scroll', () => {
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const scrolled = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+        progressBar.style.width = scrolled + '%';
+    });
 });
 
 // Navigation scroll effect
@@ -96,9 +115,9 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 
 // ==========================================================================
-// Reel modal / lightbox — used on portfolio.html
+// Reel modal / lightbox â€” used on portfolio.html
 // ==========================================================================
-// REELS data — YouTube-hosted (fast: grid shows YouTube's own thumbnail
+// REELS data â€” YouTube-hosted (fast: grid shows YouTube's own thumbnail
 // image, the actual player only loads when someone clicks to watch).
 //
 // TO ADD A REEL:
@@ -120,7 +139,7 @@ const REELS = [
     },
     {
         id: 'reel-2',
-        title: 'Client Review — E-commerce Brand',
+        title: 'Client Review â€” E-commerce Brand',
         category: 'review',
         youtubeId: 'B2vHEkw9rG0',
         src: '',
@@ -144,7 +163,7 @@ const REELS = [
     },
     {
         id: 'reel-5',
-        title: 'Client Review — SaaS Launch',
+        title: 'Client Review â€” SaaS Launch',
         category: 'review',
         youtubeId: 'pNZZTZHFrf0',
         src: '',
@@ -211,7 +230,7 @@ function openReelModal(reelId) {
         inner.innerHTML = `<p style="color:#999;padding:2rem;text-align:center;">Add a youtubeId for this reel in script.js</p>`;
     }
 
-    if (meta) meta.innerHTML = `<span>${reel.badge}</span> — ${reel.title}`;
+    if (meta) meta.innerHTML = `<span>${reel.badge}</span> â€” ${reel.title}`;
     modal.classList.add('open');
     document.body.style.overflow = 'hidden';
 }
@@ -258,4 +277,393 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.filter-btn').forEach(btn => {
         btn.addEventListener('click', () => filterReels(btn.dataset.filter));
     });
+
+    // ==========================================================================
+    // Meta Ads Performance Calculator Logic
+    // ==========================================================================
+    const calcBudgetRange = document.getElementById('calc-budget-range');
+    const calcBudgetNum = document.getElementById('calc-budget');
+    const calcCpcRange = document.getElementById('calc-cpc-range');
+    const calcCpcNum = document.getElementById('calc-cpc');
+    const calcConvRange = document.getElementById('calc-conv-range');
+    const calcConvNum = document.getElementById('calc-conv');
+    const calcAovRange = document.getElementById('calc-aov-range');
+    const calcAovNum = document.getElementById('calc-aov');
+
+    if (calcBudgetRange && calcBudgetNum) {
+        const resClicks = document.getElementById('res-clicks');
+        const resPurchases = document.getElementById('res-purchases');
+        const resRevenue = document.getElementById('res-revenue');
+        const resRoas = document.getElementById('res-roas');
+        const resProfit = document.getElementById('res-profit');
+        const coachTip = document.getElementById('calc-coach-tip');
+
+        function formatCurrency(val) {
+            const isNegative = val < 0;
+            const absVal = Math.abs(val);
+            const formatted = new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD',
+                maximumFractionDigits: 0
+            }).format(absVal);
+            return isNegative ? `-${formatted}` : formatted;
+        }
+
+        function formatNumber(val) {
+            return new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 }).format(val);
+        }
+
+        function calculatePerformance() {
+            const budget = parseFloat(calcBudgetNum.value) || 0;
+            const cpc = parseFloat(calcCpcNum.value) || 0.01; // Avoid divide by zero
+            const conv = parseFloat(calcConvNum.value) || 0;
+            const aov = parseFloat(calcAovNum.value) || 0;
+
+            const clicks = budget / cpc;
+            const purchases = clicks * (conv / 100);
+            const revenue = purchases * aov;
+            const roas = budget > 0 ? (revenue / budget) : 0;
+            const profit = revenue - budget;
+
+            if (resClicks) resClicks.textContent = formatNumber(clicks);
+            if (resPurchases) resPurchases.textContent = formatNumber(purchases);
+            if (resRevenue) resRevenue.textContent = formatCurrency(revenue);
+            if (resRoas) resRoas.textContent = roas.toFixed(2) + 'x';
+            
+            if (resProfit) {
+                resProfit.textContent = formatCurrency(profit);
+                if (profit >= 0) {
+                    resProfit.style.color = '#2ecc71';
+                    resProfit.textContent = '+' + formatCurrency(profit);
+                } else {
+                    resProfit.style.color = '#e74c3c';
+                }
+            }
+
+            if (coachTip) {
+                if (roas < 1.0) {
+                    coachTip.innerHTML = `<p>ðŸ”´ <strong>Critique:</strong> Your simulated campaign is not profitable (${roas.toFixed(2)}x ROAS). Decreasing your CPC or lifting your conversion rate is essential to reach profitability.</p>`;
+                    coachTip.style.borderColor = 'rgba(231, 76, 60, 0.4)';
+                } else if (roas < 2.5) {
+                    coachTip.innerHTML = `<p>ðŸŸ¡ <strong>Healthy:</strong> You are moderately profitable (${roas.toFixed(2)}x ROAS). Let's test custom high-CTR hook creatives to reduce CPC and amplify this return!</p>`;
+                    coachTip.style.borderColor = 'rgba(212, 175, 55, 0.4)';
+                } else {
+                    coachTip.innerHTML = `<p>ðŸ† <strong>Scalable:</strong> Outstanding metrics (${roas.toFixed(2)}x ROAS)! This funnel is primed for high-budget scaling. Contact Affan to scale your monthly ads.</p>`;
+                    coachTip.style.borderColor = 'rgba(46, 204, 113, 0.4)';
+                }
+            }
+        }
+
+        // Link range slider and number input
+        function setupSyncedInputs(rangeEl, numEl) {
+            rangeEl.addEventListener('input', () => {
+                numEl.value = rangeEl.value;
+                calculatePerformance();
+            });
+            numEl.addEventListener('input', () => {
+                rangeEl.value = numEl.value;
+                calculatePerformance();
+            });
+        }
+
+        setupSyncedInputs(calcBudgetRange, calcBudgetNum);
+        setupSyncedInputs(calcCpcRange, calcCpcNum);
+        setupSyncedInputs(calcConvRange, calcConvNum);
+        setupSyncedInputs(calcAovRange, calcAovNum);
+
+        // Initial calculation
+        calculatePerformance();
+    }
+
+    // ==========================================================================
+    // Testimonial Carousel sliding logic
+    // ==========================================================================
+    const testimonialsTrack = document.getElementById('testimonialsTrack');
+    const carouselPrev = document.getElementById('carouselPrev');
+    const carouselNext = document.getElementById('carouselNext');
+    const carouselDotsContainer = document.getElementById('carouselDots');
+
+    if (testimonialsTrack && carouselPrev && carouselNext && carouselDotsContainer) {
+        const slides = testimonialsTrack.querySelectorAll('.testimonial-slide');
+        let currentIndex = 0;
+        let autoSlideTimer = null;
+
+        // Create pagination dots
+        slides.forEach((_, idx) => {
+            const dot = document.createElement('div');
+            dot.className = `carousel-dot ${idx === 0 ? 'active' : ''}`;
+            dot.setAttribute('role', 'button');
+            dot.setAttribute('aria-label', `Go to slide ${idx + 1}`);
+            dot.addEventListener('click', () => {
+                goToSlide(idx);
+                resetAutoSlide();
+            });
+            carouselDotsContainer.appendChild(dot);
+        });
+
+        const dots = carouselDotsContainer.querySelectorAll('.carousel-dot');
+
+        function updateCarousel() {
+            // Translate track
+            testimonialsTrack.style.transform = `translateX(-${currentIndex * 100}%)`;
+            
+            // Update active dot
+            dots.forEach((dot, idx) => {
+                dot.classList.toggle('active', idx === currentIndex);
+            });
+        }
+
+        function goToSlide(index) {
+            currentIndex = index;
+            updateCarousel();
+        }
+
+        function nextSlide() {
+            currentIndex = (currentIndex + 1) % slides.length;
+            updateCarousel();
+        }
+
+        function prevSlide() {
+            currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+            updateCarousel();
+        }
+
+        // Add event listeners to navigation buttons
+        carouselNext.addEventListener('click', () => {
+            nextSlide();
+            resetAutoSlide();
+        });
+
+        carouselPrev.addEventListener('click', () => {
+            prevSlide();
+            resetAutoSlide();
+        });
+
+        // Auto slide every 6 seconds
+        function startAutoSlide() {
+            autoSlideTimer = setInterval(nextSlide, 6000);
+        }
+
+        function resetAutoSlide() {
+            clearInterval(autoSlideTimer);
+            startAutoSlide();
+        }
+
+        startAutoSlide();
+    }
+
+    // ==========================================================================
+    // Contact Form Validation & Success Card Transitions
+    // ==========================================================================
+    const contactForm = document.getElementById('contact-form');
+    const contactFormContainer = document.getElementById('contactFormContainer');
+
+    if (contactForm && contactFormContainer) {
+        const inputName = document.getElementById('contact-name');
+        const inputEmail = document.getElementById('contact-email');
+        const inputInterest = document.getElementById('contact-interest');
+        const inputMessage = document.getElementById('contact-message');
+
+        const groupName = document.getElementById('group-name');
+        const groupEmail = document.getElementById('group-email');
+        const groupMessage = document.getElementById('group-message');
+
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(String(email).toLowerCase());
+        }
+
+        // Live validation on input
+        if (inputName) {
+            inputName.addEventListener('input', () => {
+                if (inputName.value.trim().length > 0) {
+                    groupName.classList.remove('invalid');
+                }
+            });
+        }
+        if (inputEmail) {
+            inputEmail.addEventListener('input', () => {
+                if (validateEmail(inputEmail.value.trim())) {
+                    groupEmail.classList.remove('invalid');
+                }
+            });
+        }
+        if (inputMessage) {
+            inputMessage.addEventListener('input', () => {
+                if (inputMessage.value.trim().length > 0) {
+                    groupMessage.classList.remove('invalid');
+                }
+            });
+        }
+
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            let isValid = true;
+            let firstInvalidEl = null;
+
+            // Name verification
+            if (!inputName || inputName.value.trim() === '') {
+                isValid = false;
+                groupName.classList.add('invalid', 'invalid-shake');
+                firstInvalidEl = inputName;
+                setTimeout(() => groupName.classList.remove('invalid-shake'), 400);
+            } else {
+                groupName.classList.remove('invalid');
+            }
+
+            // Email verification
+            if (!inputEmail || !validateEmail(inputEmail.value.trim())) {
+                isValid = false;
+                groupEmail.classList.add('invalid', 'invalid-shake');
+                if (!firstInvalidEl) firstInvalidEl = inputEmail;
+                setTimeout(() => groupEmail.classList.remove('invalid-shake'), 400);
+            } else {
+                groupEmail.classList.remove('invalid');
+            }
+
+            // Message verification
+            if (!inputMessage || inputMessage.value.trim() === '') {
+                isValid = false;
+                groupMessage.classList.add('invalid', 'invalid-shake');
+                if (!firstInvalidEl) firstInvalidEl = inputMessage;
+                setTimeout(() => groupMessage.classList.remove('invalid-shake'), 400);
+            } else {
+                groupMessage.classList.remove('invalid');
+            }
+
+            if (!isValid) {
+                if (firstInvalidEl) firstInvalidEl.focus();
+                return;
+            }
+
+            // If valid, formulate mailto URL
+            const nameVal = encodeURIComponent(inputName.value.trim());
+            const emailVal = encodeURIComponent(inputEmail.value.trim());
+            const interestVal = encodeURIComponent(inputInterest ? inputInterest.value : 'Meta Ads');
+            const messageVal = encodeURIComponent(inputMessage.value.trim());
+
+            const mailtoUrl = `mailto:affanrunsads@gmail.com?subject=Inquiry from ${nameVal} regarding ${interestVal}&body=Sender Name: ${nameVal}%0D%0ASender Email: ${emailVal}%0D%0AInterest: ${interestVal}%0D%0A%0D%0AMessage:%0D%0A${messageVal}`;
+
+            // Trigger mailto link
+            const tempLink = document.createElement('a');
+            tempLink.href = mailtoUrl;
+            tempLink.click();
+
+            // Transition to elegant Success Card
+            const originalFormHtml = contactFormContainer.innerHTML;
+            
+            contactFormContainer.innerHTML = `
+                <div class="success-card">
+                    <div class="success-icon-wrapper">âœ“</div>
+                    <h3 class="success-title">Message Formatted!</h3>
+                    <p class="success-desc">
+                        I've formatted your inquiry and launched your system's email client. If your client didn't open automatically, use the buttons below to manually trigger or reset.
+                    </p>
+                    <div class="success-buttons">
+                        <a href="${mailtoUrl}" class="btn btn-primary btn-shimmer" id="successTriggerMail">Open Mail Client Again</a>
+                        <button class="btn btn-secondary" id="successResetBtn" style="border: 1px solid rgba(255,255,255,0.15); background: transparent; color: #fff;">Send Another Message</button>
+                    </div>
+                </div>
+            `;
+
+            // Setup listeners inside success card
+            const successResetBtn = document.getElementById('successResetBtn');
+            if (successResetBtn) {
+                successResetBtn.addEventListener('click', () => {
+                    contactFormContainer.innerHTML = originalFormHtml;
+                    // Rebind event listener on the newly-inserted form
+                    const reloadedForm = document.getElementById('contact-form');
+                    if (reloadedForm) {
+                        // Clear fields and re-run DOMContentLoaded contactForm logic
+                        reloadedForm.reset();
+                        // Recursive call to bind events (cleanest implementation)
+                        window.location.reload();
+                    }
+                });
+            }
+        });
+    }
+
+    // ==========================================================================
+    // Clipboard Utility Operations
+    // ==========================================================================
+    const copyEmailBtn = document.getElementById('copyEmailBtn');
+    const copyPhoneBtn = document.getElementById('copyPhoneBtn');
+    const emailCard = document.getElementById('contact-email-card');
+    const phoneCard = document.getElementById('contact-phone-card');
+
+    function performCopy(textToCopy, tooltipEl) {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(textToCopy)
+                .then(() => showCopiedFeedback(tooltipEl))
+                .catch(() => fallbackCopy(textToCopy, tooltipEl));
+        } else {
+            fallbackCopy(textToCopy, tooltipEl);
+        }
+    }
+
+    function fallbackCopy(text, tooltipEl) {
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        textArea.style.position = 'fixed'; // Avoid scrolling
+        textArea.style.opacity = '0';
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        try {
+            document.execCommand('copy');
+            showCopiedFeedback(tooltipEl);
+        } catch (err) {
+            console.error('Fallback copy failed', err);
+        }
+        document.body.removeChild(textArea);
+    }
+
+    function showCopiedFeedback(tooltipEl) {
+        if (!tooltipEl) return;
+        const originalText = tooltipEl.textContent;
+        tooltipEl.textContent = 'Copied!';
+        tooltipEl.style.opacity = '1';
+        tooltipEl.style.visibility = 'visible';
+
+        setTimeout(() => {
+            tooltipEl.textContent = originalText;
+            tooltipEl.style.opacity = '';
+            tooltipEl.style.visibility = '';
+        }, 2000);
+    }
+
+    if (copyEmailBtn) {
+        const tooltip = copyEmailBtn.querySelector('.copy-tooltip');
+        copyEmailBtn.addEventListener('click', (e) => {
+            e.stopPropagation(); // Avoid triggering card click
+            performCopy('affanrunsads@gmail.com', tooltip);
+        });
+    }
+
+    if (copyPhoneBtn) {
+        const tooltip = copyPhoneBtn.querySelector('.copy-tooltip');
+        copyPhoneBtn.addEventListener('click', (e) => {
+            e.stopPropagation(); // Avoid triggering card click
+            performCopy('+92 330 2617263', tooltip);
+        });
+    }
+
+    // Clicking the cards triggers their default respective actions
+    if (emailCard) {
+        emailCard.addEventListener('click', (e) => {
+            // Check if copy button was clicked
+            if (e.target.closest('#copyEmailBtn')) return;
+            window.location.href = 'mailto:affanrunsads@gmail.com';
+        });
+    }
+
+    if (phoneCard) {
+        phoneCard.addEventListener('click', (e) => {
+            // Check if copy button was clicked
+            if (e.target.closest('#copyPhoneBtn')) return;
+            window.location.href = 'tel:+923302617263';
+        });
+    }
 });

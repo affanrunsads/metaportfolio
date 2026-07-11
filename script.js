@@ -340,6 +340,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
 
+            // Update Visual Progress Bar
+            const calcEfficiencyBar = document.getElementById('calcEfficiencyBar');
+            if (calcEfficiencyBar) {
+                const barWidth = Math.min(Math.max((roas / 3.5) * 100, 10), 100);
+                calcEfficiencyBar.style.width = barWidth + '%';
+
+                // Colorize bar gradient dynamically based on profitability
+                if (roas < 1.0) {
+                    calcEfficiencyBar.style.background = 'linear-gradient(to right, #e74c3c, #f39c12)';
+                } else if (roas < 2.5) {
+                    calcEfficiencyBar.style.background = 'linear-gradient(to right, #f39c12, var(--gold))';
+                } else {
+                    calcEfficiencyBar.style.background = 'linear-gradient(to right, var(--gold), #2ecc71)';
+                }
+            }
+
             if (coachTip) {
                 if (roas < 1.0) {
                     coachTip.innerHTML = `<p>🔴 <strong>Critique:</strong> Your simulated campaign is not profitable (${roas.toFixed(2)}x ROAS). Decreasing your CPC or lifting your conversion rate is essential to reach profitability.</p>`;
@@ -666,4 +682,68 @@ document.addEventListener('DOMContentLoaded', () => {
             window.location.href = 'tel:+923302617263';
         });
     }
+
+    // ==========================================================================
+    // Interactive FAQ Accordions Handler
+    // ==========================================================================
+    const faqToggles = document.querySelectorAll('.faq-toggle');
+    faqToggles.forEach(toggle => {
+        toggle.addEventListener('click', () => {
+            const item = toggle.closest('.faq-item');
+            const answer = item.querySelector('.faq-answer');
+            const icon = toggle.querySelector('.faq-icon');
+
+            const isOpen = item.classList.contains('active');
+
+            // Close other FAQs for a clean accordion user experience
+            document.querySelectorAll('.faq-item').forEach(otherItem => {
+                otherItem.classList.remove('active');
+                const otherAnswer = otherItem.querySelector('.faq-answer');
+                const otherIcon = otherItem.querySelector('.faq-icon');
+                if (otherAnswer) otherAnswer.style.maxHeight = '0';
+                if (otherIcon) otherIcon.textContent = '+';
+            });
+
+            if (!isOpen) {
+                item.classList.add('active');
+                answer.style.maxHeight = answer.scrollHeight + 'px';
+                if (icon) icon.textContent = '−';
+            }
+        });
+    });
+
+    // ==========================================================================
+    // Back to Top Smooth Scroll Visibility Controller
+    // ==========================================================================
+    const backToTopBtn = document.getElementById('backToTop');
+    if (backToTopBtn) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 400) {
+                backToTopBtn.classList.add('visible');
+            } else {
+                backToTopBtn.classList.remove('visible');
+            }
+        });
+
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    }
+
+    // ==========================================================================
+    // Premium Mouse Tracer Highlights for Case Studies Grid
+    // ==========================================================================
+    const caseCards = document.querySelectorAll('.case-study-card');
+    caseCards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            card.style.setProperty('--mouse-x', `${x}px`);
+            card.style.setProperty('--mouse-y', `${y}px`);
+        });
+    });
 });

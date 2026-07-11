@@ -1,5 +1,5 @@
 // ==========================================================================
-// Affan Runs Ads â€” Shared Script
+// Affan Runs Ads — Shared Script
 // ==========================================================================
 
 // Preloader
@@ -115,9 +115,9 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 
 // ==========================================================================
-// Reel modal / lightbox â€” used on portfolio.html
+// Reel modal / lightbox — used on portfolio.html
 // ==========================================================================
-// REELS data â€” YouTube-hosted (fast: grid shows YouTube's own thumbnail
+// REELS data — YouTube-hosted (fast: grid shows YouTube's own thumbnail
 // image, the actual player only loads when someone clicks to watch).
 //
 // TO ADD A REEL:
@@ -139,7 +139,7 @@ const REELS = [
     },
     {
         id: 'reel-2',
-        title: 'Client Review â€” E-commerce Brand',
+        title: 'Client Review — E-commerce Brand',
         category: 'review',
         youtubeId: 'B2vHEkw9rG0',
         src: '',
@@ -163,7 +163,7 @@ const REELS = [
     },
     {
         id: 'reel-5',
-        title: 'Client Review â€” SaaS Launch',
+        title: 'Client Review — SaaS Launch',
         category: 'review',
         youtubeId: 'pNZZTZHFrf0',
         src: '',
@@ -230,7 +230,7 @@ function openReelModal(reelId) {
         inner.innerHTML = `<p style="color:#999;padding:2rem;text-align:center;">Add a youtubeId for this reel in script.js</p>`;
     }
 
-    if (meta) meta.innerHTML = `<span>${reel.badge}</span> â€” ${reel.title}`;
+    if (meta) meta.innerHTML = `<span>${reel.badge}</span> — ${reel.title}`;
     modal.classList.add('open');
     document.body.style.overflow = 'hidden';
 }
@@ -342,13 +342,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (coachTip) {
                 if (roas < 1.0) {
-                    coachTip.innerHTML = `<p>ðŸ”´ <strong>Critique:</strong> Your simulated campaign is not profitable (${roas.toFixed(2)}x ROAS). Decreasing your CPC or lifting your conversion rate is essential to reach profitability.</p>`;
+                    coachTip.innerHTML = `<p>🔴 <strong>Critique:</strong> Your simulated campaign is not profitable (${roas.toFixed(2)}x ROAS). Decreasing your CPC or lifting your conversion rate is essential to reach profitability.</p>`;
                     coachTip.style.borderColor = 'rgba(231, 76, 60, 0.4)';
                 } else if (roas < 2.5) {
-                    coachTip.innerHTML = `<p>ðŸŸ¡ <strong>Healthy:</strong> You are moderately profitable (${roas.toFixed(2)}x ROAS). Let's test custom high-CTR hook creatives to reduce CPC and amplify this return!</p>`;
+                    coachTip.innerHTML = `<p>🟡 <strong>Healthy:</strong> You are moderately profitable (${roas.toFixed(2)}x ROAS). Let's test custom high-CTR hook creatives to reduce CPC and amplify this return!</p>`;
                     coachTip.style.borderColor = 'rgba(212, 175, 55, 0.4)';
                 } else {
-                    coachTip.innerHTML = `<p>ðŸ† <strong>Scalable:</strong> Outstanding metrics (${roas.toFixed(2)}x ROAS)! This funnel is primed for high-budget scaling. Contact Affan to scale your monthly ads.</p>`;
+                    coachTip.innerHTML = `<p>🏆 <strong>Scalable:</strong> Outstanding metrics (${roas.toFixed(2)}x ROAS)! This funnel is primed for high-budget scaling. Contact Affan to scale your monthly ads.</p>`;
                     coachTip.style.borderColor = 'rgba(46, 204, 113, 0.4)';
                 }
             }
@@ -555,7 +555,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             contactFormContainer.innerHTML = `
                 <div class="success-card">
-                    <div class="success-icon-wrapper">âœ“</div>
+                    <div class="success-icon-wrapper">✓</div>
                     <h3 class="success-title">Message Formatted!</h3>
                     <p class="success-desc">
                         I've formatted your inquiry and launched your system's email client. If your client didn't open automatically, use the buttons below to manually trigger or reset.

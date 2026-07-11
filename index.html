@@ -172,6 +172,102 @@
         </div>
     </section>
 
+    <!-- Interactive Ads Calculator -->
+    <section class="ads-calculator-section" id="calculator">
+        <div class="section-header">
+            <span class="section-subtitle">Simulator</span>
+            <h2 class="section-title">Meta Ads Performance Calculator</h2>
+        </div>
+        <div class="calculator-container">
+            <div class="calculator-intro">
+                <p>Estimate your potential revenue, ROAS, and profit using our real-world Meta Ads model. Adjust the metrics below to see how optimizing CPR, CTR, and conversion rates scales your business.</p>
+            </div>
+            <div class="calculator-grid">
+                <!-- Inputs column -->
+                <div class="calc-inputs-card">
+                    <h3 class="calc-card-title">Campaign Variables</h3>
+
+                    <div class="calc-form-group">
+                        <label for="calc-budget-range">Monthly Ad Spend ($)</label>
+                        <input type="range" id="calc-budget-range" min="1000" max="100000" step="1000" value="10000">
+                        <div class="calc-range-output">
+                            <span>$1,000</span>
+                            <input type="number" id="calc-budget" value="10000" min="500" max="1000000">
+                            <span>$100,000+</span>
+                        </div>
+                    </div>
+
+                    <div class="calc-form-group">
+                        <label for="calc-cpc-range">Average Cost Per Click (CPC) ($)</label>
+                        <input type="range" id="calc-cpc-range" min="0.10" max="5.00" step="0.05" value="0.80">
+                        <div class="calc-range-output">
+                            <span>$0.10</span>
+                            <input type="number" id="calc-cpc" value="0.80" step="0.01" min="0.01">
+                            <span>$5.00</span>
+                        </div>
+                    </div>
+
+                    <div class="calc-form-group">
+                        <label for="calc-conv-range">Website Purchase Conversion Rate (%)</label>
+                        <input type="range" id="calc-conv-range" min="0.1" max="10.0" step="0.1" value="2.0">
+                        <div class="calc-range-output">
+                            <span>0.1%</span>
+                            <input type="number" id="calc-conv" value="2.0" step="0.1" min="0.05">
+                            <span>10.0%</span>
+                        </div>
+                    </div>
+
+                    <div class="calc-form-group">
+                        <label for="calc-aov-range">Average Order Value (AOV) ($)</label>
+                        <input type="range" id="calc-aov-range" min="10" max="1000" step="5" value="75">
+                        <div class="calc-range-output">
+                            <span>$10</span>
+                            <input type="number" id="calc-aov" value="75" min="1">
+                            <span>$1,000</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Outputs column -->
+                <div class="calc-outputs-card">
+                    <h3 class="calc-card-title">Estimated Performance</h3>
+
+                    <div class="calc-results-grid">
+                        <div class="calc-result-item">
+                            <span class="calc-result-label">Estimated Clicks</span>
+                            <span class="calc-result-value" id="res-clicks">12,500</span>
+                        </div>
+                        <div class="calc-result-item">
+                            <span class="calc-result-label">Estimated Purchases</span>
+                            <span class="calc-result-value" id="res-purchases">250</span>
+                        </div>
+                        <div class="calc-result-item full-width">
+                            <span class="calc-result-label">Total Estimated Revenue</span>
+                            <span class="calc-result-value highlight-gold" id="res-revenue">$18,750</span>
+                        </div>
+                        <div class="calc-result-item">
+                            <span class="calc-result-label">Return on Ad Spend (ROAS)</span>
+                            <span class="calc-result-value highlight-gold" id="res-roas">1.88x</span>
+                        </div>
+                        <div class="calc-result-item">
+                            <span class="calc-result-label">Estimated Net Profit</span>
+                            <span class="calc-result-value" id="res-profit">$8,750</span>
+                        </div>
+                    </div>
+
+                    <!-- Interactive Coach Tips box -->
+                    <div class="calc-coach-tip" id="calc-coach-tip">
+                        <p><strong>Affan's Optimization Tip:</strong> By decreasing CPC to <strong>$0.40</strong> and boosting conversion rates to <strong>3%</strong> (our benchmark), your estimated ROAS would jump to <strong>5.63x</strong> generating <strong>$56,250</strong> from the same budget!</p>
+                    </div>
+
+                    <div class="calc-cta-container">
+                        <a href="contact.html" class="btn btn-primary btn-shimmer" style="width: 100%; font-weight: 700; letter-spacing: 0.5px;">Scale Your Ads with Affan</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Metrics Section -->
     <section class="metrics-section" id="metrics">
         <div class="section-header">

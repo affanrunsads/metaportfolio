@@ -2,10 +2,29 @@
 // Affan Runs Ads — Shared Script
 // ==========================================================================
 
+// Dark/Light Theme Handler
+(function() {
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+})();
+
 // Preloader
 window.addEventListener('load', () => {
     const pre = document.querySelector('.preloader');
     if (pre) setTimeout(() => pre.classList.add('hidden'), 500);
+});
+
+// Theme toggle button setup
+document.addEventListener('DOMContentLoaded', () => {
+    const toggleBtns = document.querySelectorAll('.theme-toggle-btn');
+    toggleBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        });
+    });
 });
 
 // Dynamic Scroll Progress Bar Integration
@@ -297,6 +316,18 @@ document.addEventListener('DOMContentLoaded', () => {
         const resRoas = document.getElementById('res-roas');
         const resProfit = document.getElementById('res-profit');
         const coachTip = document.getElementById('calc-coach-tip');
+        const exportBtn = document.getElementById('btn-export-calc');
+
+        // Restore values from localStorage
+        const storedBudget = localStorage.getItem('calc_budget');
+        const storedCpc = localStorage.getItem('calc_cpc');
+        const storedConv = localStorage.getItem('calc_conv');
+        const storedAov = localStorage.getItem('calc_aov');
+
+        if (storedBudget) { calcBudgetNum.value = storedBudget; calcBudgetRange.value = storedBudget; }
+        if (storedCpc) { calcCpcNum.value = storedCpc; calcCpcRange.value = storedCpc; }
+        if (storedConv) { calcConvNum.value = storedConv; calcConvRange.value = storedConv; }
+        if (storedAov) { calcAovNum.value = storedAov; calcAovRange.value = storedAov; }
 
         function formatCurrency(val) {
             const isNegative = val < 0;
@@ -339,6 +370,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     resProfit.style.color = '#e74c3c';
                 }
             }
+
+            // Save variables to localStorage
+            localStorage.setItem('calc_budget', budget);
+            localStorage.setItem('calc_cpc', cpc);
+            localStorage.setItem('calc_conv', conv);
+            localStorage.setItem('calc_aov', aov);
 
             // Update Visual Progress Bar
             const calcEfficiencyBar = document.getElementById('calcEfficiencyBar');
@@ -386,6 +423,58 @@ document.addEventListener('DOMContentLoaded', () => {
         setupSyncedInputs(calcCpcRange, calcCpcNum);
         setupSyncedInputs(calcConvRange, calcConvNum);
         setupSyncedInputs(calcAovRange, calcAovNum);
+
+        // Export Report Handler
+        if (exportBtn) {
+            exportBtn.addEventListener('click', () => {
+                const budget = calcBudgetNum.value;
+                const cpc = calcCpcNum.value;
+                const conv = calcConvNum.value;
+                const aov = calcAovNum.value;
+                const clicks = resClicks ? resClicks.textContent : "0";
+                const purchases = resPurchases ? resPurchases.textContent : "0";
+                const revenue = resRevenue ? resRevenue.textContent : "$0";
+                const roas = resRoas ? resRoas.textContent : "0x";
+                const profit = resProfit ? resProfit.textContent : "$0";
+
+                const textReport = `===================================================
+AFFAN RUNS ADS - META PERFORMANCE SIMULATION REPORT
+===================================================
+
+[CAMPAIGN INPUT VARIABLES]
+- Monthly Ad Spend: $${parseFloat(budget).toLocaleString()}
+- Average Cost Per Click (CPC): $${parseFloat(cpc).toFixed(2)}
+- Conversion Rate (CVR): ${parseFloat(conv).toFixed(1)}%
+- Average Order Value (AOV): $${parseFloat(aov).toLocaleString()}
+
+[SIMULATED PERFORMANCE RESULTS]
+- Estimated Clicks: ${clicks}
+- Estimated Purchases: ${purchases}
+- Total Estimated Revenue: ${revenue}
+- Estimated Net Profit: ${profit}
+- Return on Ad Spend (ROAS): ${roas}
+
+[AFFAN'S ACQUISITION STRATEGY ADVICE]
+If your ROAS is below 2.5x, we recommend deploying dynamic creative
+hook testing models. Slicing CPC down and lifting CVR through structured
+survey presell routes are proven ways to unlock highly profitable scaling.
+
+Let's scale your brand together.
+Website: https://affanrunsads.github.io/metaportfolio/
+Contact: affanrunsads@gmail.com
+===================================================`;
+
+                const blob = new Blob([textReport], { type: 'text/plain;charset=utf-8' });
+                const url = URL.createObjectURL(blob);
+                const tempLink = document.createElement('a');
+                tempLink.href = url;
+                tempLink.download = `AffanRunsAds_Simulation_Report.txt`;
+                document.body.appendChild(tempLink);
+                tempLink.click();
+                document.body.removeChild(tempLink);
+                URL.revokeObjectURL(url);
+            });
+        }
 
         // Initial calculation
         calculatePerformance();
@@ -711,6 +800,126 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+    // ==========================================================================
+    // "Discovery Call" Interactive Scheduler Modal Handler
+    // ==========================================================================
+    const openSchedulerBtn = document.getElementById('openSchedulerBtn');
+    const closeSchedulerBtn = document.getElementById('closeSchedulerBtn');
+    const schedulerModal = document.getElementById('schedulerModal');
+    const confirmScheduleBtn = document.getElementById('confirmScheduleBtn');
+    const submitScheduleBtn = document.getElementById('submitScheduleBtn');
+    const closeSuccessSchedulerBtn = document.getElementById('closeSuccessSchedulerBtn');
+
+    const step1 = document.getElementById('schedulerStep1');
+    const step2 = document.getElementById('schedulerStep2');
+    const stepSuccess = document.getElementById('schedulerStepSuccess');
+
+    const schedulerDate = document.getElementById('scheduler-date');
+    const schedulerTime = document.getElementById('scheduler-time');
+    const schedulerBrand = document.getElementById('scheduler-brand');
+    const schedulerEmail = document.getElementById('scheduler-email');
+
+    const successDateText = document.getElementById('success-date-text');
+    const successTimeText = document.getElementById('success-time-text');
+
+    // Pre-populate date with tomorrow
+    if (schedulerDate) {
+        const tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        schedulerDate.value = tomorrow.toISOString().split('T')[0];
+        schedulerDate.min = tomorrow.toISOString().split('T')[0];
+    }
+
+    if (openSchedulerBtn && schedulerModal) {
+        openSchedulerBtn.addEventListener('click', () => {
+            schedulerModal.classList.add('open');
+            document.body.style.overflow = 'hidden';
+
+            // Reset to step 1
+            if (step1) step1.style.display = 'block';
+            if (step2) step2.style.display = 'none';
+            if (stepSuccess) stepSuccess.style.display = 'none';
+        });
+
+        const closeModalFunc = () => {
+            schedulerModal.classList.remove('open');
+            document.body.style.overflow = '';
+        };
+
+        if (closeSchedulerBtn) closeSchedulerBtn.addEventListener('click', closeModalFunc);
+        if (closeSuccessSchedulerBtn) closeSuccessSchedulerBtn.addEventListener('click', closeModalFunc);
+        schedulerModal.addEventListener('click', (e) => {
+            if (e.target === schedulerModal) closeModalFunc();
+        });
+
+        // Step 1 to Step 2 Transition
+        if (confirmScheduleBtn && step1 && step2) {
+            confirmScheduleBtn.addEventListener('click', () => {
+                if (!schedulerDate.value) {
+                    schedulerDate.focus();
+                    return;
+                }
+                step1.style.display = 'none';
+                step2.style.display = 'block';
+            });
+        }
+
+        // Final Submission
+        if (submitScheduleBtn && step2 && stepSuccess) {
+            submitScheduleBtn.addEventListener('click', () => {
+                if (!schedulerBrand.value.trim()) {
+                    schedulerBrand.focus();
+                    return;
+                }
+                if (!schedulerEmail.value.trim() || !schedulerEmail.value.includes('@')) {
+                    schedulerEmail.focus();
+                    return;
+                }
+
+                const dateVal = schedulerDate.value;
+                const timeVal = schedulerTime.value;
+                const brandVal = schedulerBrand.value.trim();
+                const emailVal = schedulerEmail.value.trim();
+
+                if (successDateText) successDateText.textContent = dateVal;
+                if (successTimeText) successTimeText.textContent = timeVal;
+
+                // Formulate Zoom/Discovery Call mailto trigger
+                const mailtoUrl = `mailto:affanrunsads@gmail.com?subject=Discovery Session Requested - ${encodeURIComponent(brandVal)}&body=Brand/Company: ${encodeURIComponent(brandVal)}%0D%0AContact Email: ${encodeURIComponent(emailVal)}%0D%0ASelected Date: ${encodeURIComponent(dateVal)}%0D%0ASelected Time Slot: ${encodeURIComponent(timeVal)}%0D%0A%0D%0APlease send the secure Zoom invitation link over to confirm this booking.`;
+
+                // Trigger mail client
+                const tempLink = document.createElement('a');
+                tempLink.href = mailtoUrl;
+                tempLink.click();
+
+                // Show Success Step
+                step2.style.display = 'none';
+                stepSuccess.style.display = 'block';
+            });
+        }
+    }
+
+    // Auto-fill Interest query parameter if passed in URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const interestParam = urlParams.get('interest');
+    const planParam = urlParams.get('plan');
+    const contactInterestSelect = document.getElementById('contact-interest');
+    const contactMessageTextarea = document.getElementById('contact-message');
+
+    if (contactInterestSelect && interestParam) {
+        // Find matching option
+        for (let i = 0; i < contactInterestSelect.options.length; i++) {
+            if (contactInterestSelect.options[i].text.toLowerCase().includes(interestParam.toLowerCase()) ||
+                interestParam.toLowerCase().includes(contactInterestSelect.options[i].text.toLowerCase())) {
+                contactInterestSelect.selectedIndex = i;
+                break;
+            }
+        }
+    }
+    if (contactMessageTextarea && planParam) {
+        contactMessageTextarea.value = `Hi Affan, I'm interested in scaling my business using the custom [${planParam}] package. Let's audit my current Meta Ads campaigns!`;
+    }
 
     // ==========================================================================
     // Back to Top Smooth Scroll Visibility Controller

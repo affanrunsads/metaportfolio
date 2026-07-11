@@ -6,6 +6,14 @@
 (function() {
     const savedTheme = localStorage.getItem('theme') || 'dark';
     document.documentElement.setAttribute('data-theme', savedTheme);
+    
+    const savedCountry = localStorage.getItem('country');
+    if (savedCountry) {
+        document.documentElement.setAttribute('data-country', savedCountry);
+        document.addEventListener('DOMContentLoaded', () => {
+            document.body.setAttribute('data-country', savedCountry);
+        });
+    }
 })();
 
 // Preloader
@@ -332,12 +340,22 @@ document.addEventListener('DOMContentLoaded', () => {
         function formatCurrency(val) {
             const isNegative = val < 0;
             const absVal = Math.abs(val);
-            const formatted = new Intl.NumberFormat('en-US', {
-                style: 'currency',
-                currency: 'USD',
-                maximumFractionDigits: 0
-            }).format(absVal);
-            return isNegative ? `-${formatted}` : formatted;
+            const activeCountry = localStorage.getItem('country') || 'usa';
+            if (activeCountry === 'pakistan') {
+                const formatted = new Intl.NumberFormat('en-PK', {
+                    style: 'currency',
+                    currency: 'PKR',
+                    maximumFractionDigits: 0
+                }).format(absVal);
+                return isNegative ? `-${formatted}` : formatted;
+            } else {
+                const formatted = new Intl.NumberFormat('en-US', {
+                    style: 'currency',
+                    currency: 'USD',
+                    maximumFractionDigits: 0
+                }).format(absVal);
+                return isNegative ? `-${formatted}` : formatted;
+            }
         }
 
         function formatNumber(val) {
@@ -437,15 +455,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 const roas = resRoas ? resRoas.textContent : "0x";
                 const profit = resProfit ? resProfit.textContent : "$0";
 
+                const activeCountry = localStorage.getItem('country') || 'usa';
+                const currencySymbol = activeCountry === 'pakistan' ? 'PKR ' : '$';
                 const textReport = `===================================================
 AFFAN RUNS ADS - META PERFORMANCE SIMULATION REPORT
 ===================================================
 
 [CAMPAIGN INPUT VARIABLES]
-- Monthly Ad Spend: $${parseFloat(budget).toLocaleString()}
-- Average Cost Per Click (CPC): $${parseFloat(cpc).toFixed(2)}
+- Monthly Ad Spend: ${currencySymbol}${parseFloat(budget).toLocaleString()}
+- Average Cost Per Click (CPC): ${currencySymbol}${parseFloat(cpc).toFixed(2)}
 - Conversion Rate (CVR): ${parseFloat(conv).toFixed(1)}%
-- Average Order Value (AOV): $${parseFloat(aov).toLocaleString()}
+- Average Order Value (AOV): ${currencySymbol}${parseFloat(aov).toLocaleString()}
 
 [SIMULATED PERFORMANCE RESULTS]
 - Estimated Clicks: ${clicks}
@@ -955,4 +975,197 @@ Contact: affanrunsads@gmail.com
             card.style.setProperty('--mouse-y', `${y}px`);
         });
     });
+
+    // ==========================================================================
+    // Country Localization Engine (JULES)
+    // ==========================================================================
+    const countryModal = document.getElementById('countryModal');
+    const countrySelectorBtn = document.getElementById('countrySelectorBtn');
+    const countryDropdownMenu = document.getElementById('countryDropdownMenu');
+    const navCountryFlag = document.getElementById('nav-country-flag');
+    const navCountryName = document.getElementById('nav-country-name');
+
+    // 1. Setup Active Country on Body and UI
+    function setCountry(country, shouldReload = false) {
+        localStorage.setItem('country', country);
+        document.documentElement.setAttribute('data-country', country);
+        document.body.setAttribute('data-country', country);
+
+        // Update Nav selector display
+        if (country === 'pakistan') {
+            if (navCountryFlag) navCountryFlag.textContent = '🇵🇰';
+            if (navCountryName) navCountryName.textContent = 'PKR';
+        } else {
+            if (navCountryFlag) navCountryFlag.textContent = '🇺🇸';
+            if (navCountryName) navCountryName.textContent = 'USA';
+        }
+
+        // Apply dynamic layout/ranges for Meta Ads Calculator if on Homepage
+        adjustCalculatorConfig(country);
+
+        // Trigger dynamic page update/rendering if requested
+        if (shouldReload) {
+            window.location.reload();
+        }
+    }
+
+    // 2. Adjust Ranges and Labels on the Performance Calculator
+    function adjustCalculatorConfig(country) {
+        const budgetLabel = document.querySelector('label[for="calc-budget-range"]');
+        const budgetRange = document.getElementById('calc-budget-range');
+        const budgetNum = document.getElementById('calc-budget');
+
+        const cpcLabel = document.querySelector('label[for="calc-cpc-range"]');
+        const cpcRange = document.getElementById('calc-cpc-range');
+        const cpcNum = document.getElementById('calc-cpc');
+
+        const aovLabel = document.querySelector('label[for="calc-aov-range"]');
+        const aovRange = document.getElementById('calc-aov-range');
+        const aovNum = document.getElementById('calc-aov');
+
+        if (!budgetRange) return; // Calculator is not on this page
+
+        if (country === 'pakistan') {
+            // Pakistan specific benchmarks & currency (Rs/PKR)
+            if (budgetLabel) budgetLabel.textContent = 'Monthly Ad Spend (PKR Rs)';
+            if (cpcLabel) cpcLabel.textContent = 'Average Cost Per Click (CPC) (PKR Rs)';
+            if (aovLabel) aovLabel.textContent = 'Average Order Value (AOV) (PKR Rs)';
+
+            // Adjust ranges and defaults for PKR
+            budgetRange.min = "10000";
+            budgetRange.max = "5000000";
+            budgetRange.step = "10000";
+            if (parseFloat(budgetNum.value) < 10000 || parseFloat(budgetNum.value) === 10000) {
+                budgetRange.value = "250000";
+                budgetNum.value = "250000";
+            }
+            const minBudgetSpan = budgetRange.parentNode.querySelector('.calc-range-output span:first-child');
+            const maxBudgetSpan = budgetRange.parentNode.querySelector('.calc-range-output span:last-child');
+            if (minBudgetSpan) minBudgetSpan.textContent = 'Rs 10K';
+            if (maxBudgetSpan) maxBudgetSpan.textContent = 'Rs 5M+';
+
+            cpcRange.min = "1";
+            cpcRange.max = "150";
+            cpcRange.step = "1";
+            if (parseFloat(cpcNum.value) < 1) {
+                cpcRange.value = "20";
+                cpcNum.value = "20";
+            }
+            const minCpcSpan = cpcRange.parentNode.querySelector('.calc-range-output span:first-child');
+            const maxCpcSpan = cpcRange.parentNode.querySelector('.calc-range-output span:last-child');
+            if (minCpcSpan) minCpcSpan.textContent = 'Rs 1';
+            if (maxCpcSpan) maxCpcSpan.textContent = 'Rs 150';
+
+            aovRange.min = "500";
+            aovRange.max = "50000";
+            aovRange.step = "100";
+            if (parseFloat(aovNum.value) < 500) {
+                aovRange.value = "4500";
+                aovNum.value = "4500";
+            }
+            const minAovSpan = aovRange.parentNode.querySelector('.calc-range-output span:first-child');
+            const maxAovSpan = aovRange.parentNode.querySelector('.calc-range-output span:last-child');
+            if (minAovSpan) minAovSpan.textContent = 'Rs 500';
+            if (maxAovSpan) maxAovSpan.textContent = 'Rs 50K';
+
+        } else {
+            // US specific benchmarks & currency ($)
+            if (budgetLabel) budgetLabel.textContent = 'Monthly Ad Spend ($)';
+            if (cpcLabel) cpcLabel.textContent = 'Average Cost Per Click (CPC) ($)';
+            if (aovLabel) aovLabel.textContent = 'Average Order Value (AOV) ($)';
+
+            // Reset US ranges
+            budgetRange.min = "1000";
+            budgetRange.max = "100000";
+            budgetRange.step = "1000";
+            if (parseFloat(budgetNum.value) > 100000) {
+                budgetRange.value = "10000";
+                budgetNum.value = "10000";
+            }
+            const minBudgetSpan = budgetRange.parentNode.querySelector('.calc-range-output span:first-child');
+            const maxBudgetSpan = budgetRange.parentNode.querySelector('.calc-range-output span:last-child');
+            if (minBudgetSpan) minBudgetSpan.textContent = '$1,000';
+            if (maxBudgetSpan) maxBudgetSpan.textContent = '$100,000+';
+
+            cpcRange.min = "0.10";
+            cpcRange.max = "5.00";
+            cpcRange.step = "0.05";
+            if (parseFloat(cpcNum.value) > 5) {
+                cpcRange.value = "0.80";
+                cpcNum.value = "0.80";
+            }
+            const minCpcSpan = cpcRange.parentNode.querySelector('.calc-range-output span:first-child');
+            const maxCpcSpan = cpcRange.parentNode.querySelector('.calc-range-output span:last-child');
+            if (minCpcSpan) minCpcSpan.textContent = '$0.10';
+            if (maxCpcSpan) maxCpcSpan.textContent = '$5.00';
+
+            aovRange.min = "10";
+            aovRange.max = "1000";
+            aovRange.step = "5";
+            if (parseFloat(aovNum.value) > 1000) {
+                aovRange.value = "75";
+                aovNum.value = "75";
+            }
+            const minAovSpan = aovRange.parentNode.querySelector('.calc-range-output span:first-child');
+            const maxAovSpan = aovRange.parentNode.querySelector('.calc-range-output span:last-child');
+            if (minAovSpan) minAovSpan.textContent = '$10';
+            if (maxAovSpan) maxAovSpan.textContent = '$1,000';
+        }
+
+        // Re-execute calculations with corrected parameters
+        if (typeof calculatePerformance === 'function') {
+            calculatePerformance();
+        }
+    }
+
+    // 3. Setup First-Time Country Popup Logic (Only on Home/index.html)
+    const activeCountry = localStorage.getItem('country');
+    if (!activeCountry) {
+        if (countryModal) {
+            setTimeout(() => {
+                countryModal.classList.add('open');
+                document.body.style.overflow = 'hidden';
+            }, 600);
+        } else {
+            // Default to US if not on Home Page and not set yet
+            setCountry('usa');
+        }
+    } else {
+        setCountry(activeCountry);
+    }
+
+    // 4. Modal Click Handlers
+    const countryModalBtns = document.querySelectorAll('.country-modal-btn');
+    countryModalBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const selectedCountry = btn.dataset.country;
+            if (countryModal) countryModal.classList.remove('open');
+            document.body.style.overflow = '';
+            setCountry(selectedCountry, true);
+        });
+    });
+
+    // 5. Navbar Selector Toggle Handlers
+    if (countrySelectorBtn && countryDropdownMenu) {
+        countrySelectorBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            countryDropdownMenu.classList.toggle('open');
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', () => {
+            countryDropdownMenu.classList.remove('open');
+        });
+
+        // Dropdown Items Click Handlers
+        const dropdownItems = document.querySelectorAll('.country-dropdown-item');
+        dropdownItems.forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const selectedCountry = item.dataset.country;
+                countryDropdownMenu.classList.remove('open');
+                setCountry(selectedCountry, true);
+            });
+        });
+    }
 });

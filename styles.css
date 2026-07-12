@@ -1058,6 +1058,49 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 }
 
 /* ==========================================================================
+   PRICING DISCOUNT & PROMOTION UPGRADES
+   ========================================================================== */
+.promo-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #111, #2ecc71);
+    border: 1px solid #2ecc71;
+    color: #2ecc71;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px;
+    margin-bottom: 0.75rem;
+}
+[data-theme="light"] .promo-badge {
+    background: linear-gradient(135deg, #fff, #e8fcf0);
+}
+
+.price-original {
+    text-decoration: line-through;
+    color: var(--text-darker);
+    font-size: 1.1rem;
+    font-weight: 400;
+    margin-right: 0.4rem;
+}
+
+.price-discounted {
+    color: #2ecc71 !important;
+    text-shadow: 0 0 10px rgba(46, 204, 113, 0.25);
+}
+
+.promo-tagline {
+    font-size: 0.75rem;
+    color: #2ecc71;
+    font-weight: 600;
+    display: block;
+    margin-top: 0.25rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* ==========================================================================
    COUNTRY LOCALIZATION SYSTEMS — JULES
    ========================================================================== */
 

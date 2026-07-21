@@ -480,6 +480,23 @@ section { padding: var(--section-padding); position: relative; width: 100%; }
 .about-text { opacity: 0; transform: translateY(30px); }
 .about-text.visible { animation: fadeInUp 0.8s ease forwards; }
 .about-text p { font-size: 1rem; color: var(--text-sub); margin-bottom: 1.5rem; line-height: 1.9; }
+
+/* Centering Homepage About Preview Section */
+.home-page .about-content {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+.home-page .about-text {
+    flex: none;
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+.home-page .about-text p {
+    text-align: center;
+}
+
 .highlight { color: var(--gold); font-weight: 600; }
 
 .skills-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; }
@@ -950,6 +967,14 @@ footer { background: var(--black); padding: 3rem 1rem 2rem; text-align: center; 
     .btn { width: auto; }
     .hero-image-container { order: 0; flex: 0 0 300px; }
     .profile-image-wrapper { width: 280px; height: 280px; }
+
+    /* Centering the homepage hero content on tablet and up */
+    .home-page .hero-content { flex-direction: column; align-items: center; text-align: center; gap: 2.5rem; }
+    .home-page .hero-text { text-align: center; flex: none; max-width: 800px; margin: 0 auto; }
+    .home-page .hero-description { max-width: 800px; margin: 0 auto 2rem; }
+    .home-page .hero-buttons { flex-direction: row; width: auto; justify-content: center; margin: 0 auto; }
+    .home-page .btn { width: auto; }
+    .home-page .hero-image-container { order: 1; flex: none; margin-top: 2rem; display: flex; justify-content: center; }
     .stats-bar { grid-template-columns: repeat(4, 1fr); margin-top: 4rem; }
     .stat-number { font-size: 2rem; }
     .stat-label { font-size: 0.75rem; }
@@ -1004,6 +1029,7 @@ footer { background: var(--black); padding: 3rem 1rem 2rem; text-align: center; 
 @media (min-width: 1400px) {
     .hero-content { gap: 5rem; }
     .profile-image-wrapper { width: 400px; height: 400px; }
+    .home-page .hero-content { gap: 2.5rem; }
 }
 
 /* Small Mobile Optimizations (max-width: 360px) */

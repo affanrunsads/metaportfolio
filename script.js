@@ -1168,4 +1168,100 @@ Contact: affanrunsads@gmail.com
             });
         });
     }
+
+    // ==========================================================================
+    // CUSTOM PREMIUM CURSOR FOLLOWER WITH LERP PHYSICS
+    // ==========================================================================
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+    if (!isTouchDevice && window.innerWidth > 1024) {
+        // Create custom cursor elements
+        const cursorDot = document.createElement('div');
+        cursorDot.className = 'custom-cursor-dot';
+        const cursorOutline = document.createElement('div');
+        cursorOutline.className = 'custom-cursor-outline';
+
+        document.body.appendChild(cursorDot);
+        document.body.appendChild(cursorOutline);
+
+        let mouseX = window.innerWidth / 2;
+        let mouseY = window.innerHeight / 2;
+        let outlineX = mouseX;
+        let outlineY = mouseY;
+
+        // Tracking coordinates
+        window.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+
+            // Direct instant follow for the central dot
+            cursorDot.style.left = mouseX + 'px';
+            cursorDot.style.top = mouseY + 'px';
+        });
+
+        // Linear interpolation (LERP) physics loop for delayed follow outline
+        function updateOutlinePosition() {
+            const lerpFactor = 0.15; // Smooth dragging coefficient
+            outlineX += (mouseX - outlineX) * lerpFactor;
+            outlineY += (mouseY - outlineY) * lerpFactor;
+
+            cursorOutline.style.left = outlineX + 'px';
+            cursorOutline.style.top = outlineY + 'px';
+
+            requestAnimationFrame(updateOutlinePosition);
+        }
+        requestAnimationFrame(updateOutlinePosition);
+
+        // Hover expansions & glow interactions on elements
+        const hoverTargets = 'a, button, [role="button"], .filter-btn, .calc-range-output input, .skill-item, .benefit-card, .testimonial-card, .case-study-card, .metric-card, .country-selector-btn';
+
+        document.addEventListener('mouseover', (e) => {
+            if (e.target.closest(hoverTargets)) {
+                cursorDot.classList.add('hovered');
+                cursorOutline.classList.add('hovered');
+            }
+        });
+
+        document.addEventListener('mouseout', (e) => {
+            if (e.target.closest(hoverTargets)) {
+                // Check if moving to another element that is also a target to prevent flicker
+                const nextTarget = e.relatedTarget ? e.relatedTarget.closest(hoverTargets) : null;
+                if (!nextTarget) {
+                    cursorDot.classList.remove('hovered');
+                    cursorOutline.classList.remove('hovered');
+                }
+            }
+        });
+    }
+
+    // ==========================================================================
+    // PREMIUM 3D perspect-kinetic tilt animation logic on cards
+    // ==========================================================================
+    const tiltCards = document.querySelectorAll('.profile-image-wrapper, .skill-item, .benefit-card, .testimonial-card, .case-study-card, .metric-card');
+
+    tiltCards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const width = rect.width;
+            const height = rect.height;
+
+            // Mouse offsets relative to the element
+            const mouseX = e.clientX - rect.left;
+            const mouseY = e.clientY - rect.top;
+
+            // Normalize coordinate offsets from -0.5 to 0.5
+            const normX = (mouseX / width) - 0.5;
+            const normY = (mouseY / height) - 0.5;
+
+            // Compute tilt degrees (Maximum 14 degree bend limits)
+            const rotateX = normY * -14;
+            const rotateY = normX * 14;
+
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02) translateZ(10px)`;
+        });
+
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1) translateZ(0)';
+        });
+    });
 });

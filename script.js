@@ -115,9 +115,9 @@ document.querySelectorAll(
     '.section-header, .about-text, .skills-grid, .metrics, .timeline, .contact-links, .reels-grid, .reels-preview-grid, .benefits-grid, .testimonials-carousel-container, .contact-form'
 ).forEach(el => observer.observe(el));
 
-// Floating particles
+// Floating particles - only generated on mobile/tablet viewports to avoid overhead on desktop
 const particlesContainer = document.getElementById('particles');
-if (particlesContainer) {
+if (particlesContainer && window.innerWidth < 1024) {
     for (let i = 0; i < 30; i++) {
         const particle = document.createElement('div');
         particle.className = 'particle';

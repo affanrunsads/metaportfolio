@@ -651,8 +651,13 @@ footer { background: var(--black); padding: 3rem 1rem 2rem; text-align: center; 
 .footer-text { color: var(--text-darker); font-size: 0.85rem; }
 .footer-text span { color: var(--gold); }
 
-/* Particles */
+/* Particles - Hidden on desktop to prevent constant rendering loop lag */
 .particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+@media (min-width: 1024px) {
+    .particles {
+        display: none !important;
+    }
+}
 .particle { position: absolute; width: 4px; height: 4px; background: var(--gold); border-radius: 50%; opacity: 0.3; animation: float-particle 10s infinite; }
 @keyframes float-particle {
     0%, 100% { transform: translateY(0) translateX(0); opacity: 0; }
@@ -1096,7 +1101,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
    ADVANCED PREMIUM LOOPED ANIMATIONS — JULES UPGRADE
    ========================================================================== */
 
-/* GPU-Accelerated Background Glowing Orbs */
+/* GPU-Accelerated Background Glowing Orbs - Hidden on desktop to avoid massive repaint/compositing lag on large screens */
 .bg-glow-orb-container {
     position: fixed;
     top: 0;
@@ -1108,6 +1113,11 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     overflow: hidden;
     opacity: 0.65;
     transition: opacity 0.5s ease;
+}
+@media (min-width: 1024px) {
+    .bg-glow-orb-container {
+        display: none !important;
+    }
 }
 [data-theme="light"] .bg-glow-orb-container {
     opacity: 0.35;

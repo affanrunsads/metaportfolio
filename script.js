@@ -115,9 +115,9 @@ document.querySelectorAll(
     '.section-header, .about-text, .skills-grid, .metrics, .timeline, .contact-links, .reels-grid, .reels-preview-grid, .benefits-grid, .testimonials-carousel-container, .contact-form'
 ).forEach(el => observer.observe(el));
 
-// Floating particles
+// Floating particles - only generated on mobile/tablet viewports to avoid overhead on desktop
 const particlesContainer = document.getElementById('particles');
-if (particlesContainer) {
+if (particlesContainer && window.innerWidth < 1024) {
     for (let i = 0; i < 30; i++) {
         const particle = document.createElement('div');
         particle.className = 'particle';
@@ -1210,11 +1210,11 @@ Contact: affanrunsads@gmail.com
         // Linear interpolation (LERP) physics loop for delayed follow outline and smooth dot position using GPU transform
         function updateOutlinePosition() {
             const lerpFactor = 0.15; // Smooth dragging coefficient
-
+            
             // Instantly or very smoothly follow mouse for the dot
             dotX = mouseX;
             dotY = mouseY;
-
+            
             outlineX += (mouseX - outlineX) * lerpFactor;
             outlineY += (mouseY - outlineY) * lerpFactor;
 

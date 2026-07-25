@@ -1093,6 +1093,234 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 }
 
 /* ==========================================================================
+   ADVANCED PREMIUM LOOPED ANIMATIONS — JULES UPGRADE
+   ========================================================================== */
+
+/* GPU-Accelerated Background Glowing Orbs */
+.bg-glow-orb-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: -1;
+    overflow: hidden;
+    opacity: 0.65;
+    transition: opacity 0.5s ease;
+}
+[data-theme="light"] .bg-glow-orb-container {
+    opacity: 0.35;
+}
+.bg-glow-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(120px);
+    -webkit-filter: blur(120px);
+    will-change: transform;
+    mix-blend-mode: screen;
+}
+[data-theme="light"] .bg-glow-orb {
+    mix-blend-mode: multiply;
+}
+.bg-glow-orb-1 {
+    top: -10%;
+    left: -10%;
+    width: 60vw;
+    height: 60vw;
+    background: radial-gradient(circle, rgba(212, 175, 55, 0.16) 0%, transparent 75%);
+    animation: float-orb-1 25s infinite alternate ease-in-out;
+}
+.bg-glow-orb-2 {
+    bottom: -15%;
+    right: -10%;
+    width: 70vw;
+    height: 70vw;
+    background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
+    animation: float-orb-2 35s infinite alternate ease-in-out;
+}
+.bg-glow-orb-3 {
+    top: 40%;
+    left: 30%;
+    width: 50vw;
+    height: 50vw;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, transparent 70%);
+    animation: float-orb-3 30s infinite alternate ease-in-out;
+}
+
+@keyframes float-orb-1 {
+    0% { transform: translate3d(0, 0, 0) scale(1); }
+    50% { transform: translate3d(10vw, 8vh, 0) scale(1.15); }
+    100% { transform: translate3d(-5vw, 15vh, 0) scale(0.9); }
+}
+@keyframes float-orb-2 {
+    0% { transform: translate3d(0, 0, 0) scale(0.95); }
+    50% { transform: translate3d(-8vw, -12vh, 0) scale(1.1); }
+    100% { transform: translate3d(8vw, 6vh, 0) scale(1); }
+}
+@keyframes float-orb-3 {
+    0% { transform: translate3d(0, 0, 0) scale(1); }
+    50% { transform: translate3d(-12vw, 12vh, 0) scale(0.85); }
+    100% { transform: translate3d(4vw, -8vh, 0) scale(1.05); }
+}
+
+/* Infinite Horizontal Marquee Ticker */
+.marquee-container {
+    width: 100%;
+    overflow: hidden;
+    background: rgba(10, 10, 10, 0.6);
+    border-top: 1px solid rgba(212, 175, 55, 0.15);
+    border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+    padding: 1.25rem 0;
+    display: flex;
+    align-items: center;
+    position: relative;
+    z-index: 5;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    margin-top: 2rem;
+}
+[data-theme="light"] .marquee-container {
+    background: rgba(255, 255, 255, 0.6);
+}
+.marquee-track {
+    display: flex;
+    width: max-content;
+    animation: marquee-slide 30s linear infinite;
+    will-change: transform;
+}
+.marquee-container:hover .marquee-track {
+    animation-play-state: paused;
+}
+.marquee-item {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-color);
+    padding: 0 2.5rem;
+    white-space: nowrap;
+}
+.marquee-item .divider {
+    color: var(--gold);
+    text-shadow: 0 0 10px rgba(212, 175, 55, 0.6);
+    font-size: 1.2rem;
+    font-weight: 900;
+}
+.marquee-item span.highlight-metric {
+    color: #2ecc71;
+    background: rgba(46, 204, 113, 0.1);
+    border: 1px solid rgba(46, 204, 113, 0.3);
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-shadow: 0 0 8px rgba(46, 204, 113, 0.15);
+}
+.marquee-item span.highlight-gold-metric {
+    color: var(--gold);
+    background: rgba(212, 175, 55, 0.1);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-shadow: 0 0 8px rgba(212, 175, 55, 0.15);
+}
+@keyframes marquee-slide {
+    0% { transform: translate3d(0, 0, 0); }
+    100% { transform: translate3d(-50%, 0, 0); }
+}
+
+/* Slide animation for sections with grid-mesh backgrounds */
+@keyframes slide-grid {
+    0% { background-position: 0px 0px; }
+    100% { background-position: 400px 400px; }
+}
+.about, .mentorship-teaser, .ads-calculator-section, .experience, .reels-preview, .case-studies-hub {
+    animation: slide-grid 100s linear infinite;
+    will-change: background-position;
+}
+
+/* Elegant pulsating border-glows on card objects */
+@keyframes border-glow-pulse {
+    0%, 100% {
+        border-color: rgba(212, 175, 55, 0.15);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5), 0 0 0px rgba(212, 175, 55, 0);
+    }
+    50% {
+        border-color: rgba(212, 175, 55, 0.45);
+        box-shadow: 0 8px 35px rgba(0, 0, 0, 0.6), 0 0 15px rgba(212, 175, 55, 0.12);
+    }
+}
+.metric-card, .calc-inputs-card, .calc-outputs-card, .benefit-card, .testimonial-card, .skill-item, .success-card {
+    animation: border-glow-pulse 7s infinite ease-in-out;
+}
+
+/* Pulsing multi-ring waves around profile image wrapper */
+@keyframes profile-ring-ripple {
+    0% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.5;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1.35);
+        opacity: 0;
+    }
+}
+.profile-image-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%; height: 100%;
+    border-radius: 50%;
+    border: 1px solid var(--gold);
+    pointer-events: none;
+    z-index: 1;
+    animation: profile-ring-ripple 3s infinite cubic-bezier(0.1, 0.8, 0.3, 1);
+}
+.profile-image-wrapper::after {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%; height: 100%;
+    border-radius: 50%;
+    border: 1px solid var(--gold-light);
+    pointer-events: none;
+    z-index: 1;
+    animation: profile-ring-ripple 3s infinite cubic-bezier(0.1, 0.8, 0.3, 1);
+    animation-delay: 1.5s;
+}
+
+/* Continuous premium breathing state for metrics values */
+@keyframes text-glow-pulse {
+    0%, 100% {
+        text-shadow: 0 0 5px rgba(212, 175, 55, 0.1);
+        transform: scale(1);
+    }
+    50% {
+        text-shadow: 0 0 15px rgba(212, 175, 55, 0.45), 0 0 25px rgba(212, 175, 55, 0.2);
+        transform: scale(1.02);
+    }
+}
+.metric-value, .stat-number {
+    display: inline-block;
+    animation: text-glow-pulse 5s infinite ease-in-out;
+    will-change: transform, text-shadow;
+}
+
+/* Extra premium touch: rotating neon border trail on case-study elements */
+.case-study-card {
+    border: 1px solid rgba(212, 175, 55, 0.15) !important;
+}
+
+/* ==========================================================================
    CUSTOM PREMIUM CURSOR & 3D TILT EFFECT DECK
    ========================================================================== */
 

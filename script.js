@@ -967,12 +967,22 @@ Contact: affanrunsads@gmail.com
     // ==========================================================================
     const caseCards = document.querySelectorAll('.case-study-card');
     caseCards.forEach(card => {
+        let rect = null;
+
+        card.addEventListener('mouseenter', () => {
+            rect = card.getBoundingClientRect();
+        });
+
         card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
+            if (!rect) rect = card.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
             card.style.setProperty('--mouse-x', `${x}px`);
             card.style.setProperty('--mouse-y', `${y}px`);
+        });
+
+        card.addEventListener('mouseleave', () => {
+            rect = null;
         });
     });
 
@@ -1186,6 +1196,8 @@ Contact: affanrunsads@gmail.com
 
         let mouseX = window.innerWidth / 2;
         let mouseY = window.innerHeight / 2;
+        let dotX = mouseX;
+        let dotY = mouseY;
         let outlineX = mouseX;
         let outlineY = mouseY;
 
@@ -1193,20 +1205,21 @@ Contact: affanrunsads@gmail.com
         window.addEventListener('mousemove', (e) => {
             mouseX = e.clientX;
             mouseY = e.clientY;
-
-            // Direct instant follow for the central dot
-            cursorDot.style.left = mouseX + 'px';
-            cursorDot.style.top = mouseY + 'px';
         });
 
-        // Linear interpolation (LERP) physics loop for delayed follow outline
+        // Linear interpolation (LERP) physics loop for delayed follow outline and smooth dot position using GPU transform
         function updateOutlinePosition() {
             const lerpFactor = 0.15; // Smooth dragging coefficient
+
+            // Instantly or very smoothly follow mouse for the dot
+            dotX = mouseX;
+            dotY = mouseY;
+
             outlineX += (mouseX - outlineX) * lerpFactor;
             outlineY += (mouseY - outlineY) * lerpFactor;
 
-            cursorOutline.style.left = outlineX + 'px';
-            cursorOutline.style.top = outlineY + 'px';
+            cursorDot.style.transform = `translate3d(${dotX}px, ${dotY}px, 0) translate(-50%, -50%)`;
+            cursorOutline.style.transform = `translate3d(${outlineX}px, ${outlineY}px, 0) translate(-50%, -50%)`;
 
             requestAnimationFrame(updateOutlinePosition);
         }
@@ -1240,10 +1253,16 @@ Contact: affanrunsads@gmail.com
     const tiltCards = document.querySelectorAll('.profile-image-wrapper, .skill-item, .benefit-card, .testimonial-card, .case-study-card, .metric-card');
 
     tiltCards.forEach(card => {
+        let rect = null;
+
+        card.addEventListener('mouseenter', () => {
+            rect = card.getBoundingClientRect();
+        });
+
         card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            const width = rect.width;
-            const height = rect.height;
+            if (!rect) rect = card.getBoundingClientRect();
+            const width = rect.width || 1;
+            const height = rect.height || 1;
 
             // Mouse offsets relative to the element
             const mouseX = e.clientX - rect.left;
@@ -1261,6 +1280,7 @@ Contact: affanrunsads@gmail.com
         });
 
         card.addEventListener('mouseleave', () => {
+            rect = null;
             card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1) translateZ(0)';
         });
     });

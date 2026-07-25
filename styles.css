@@ -1084,6 +1084,69 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 }
 
 /* ==========================================================================
+   CUSTOM PREMIUM CURSOR & 3D TILT EFFECT DECK
+   ========================================================================== */
+
+/* Custom premium cursor styles */
+.custom-cursor-dot {
+    width: 6px;
+    height: 6px;
+    background-color: var(--gold);
+    border-radius: 50%;
+    position: fixed;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 100000;
+    transition: width 0.25s cubic-bezier(0.16, 1, 0.3, 1), height 0.25s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.25s ease;
+}
+
+.custom-cursor-outline {
+    width: 32px;
+    height: 32px;
+    border: 1.5px solid var(--gold);
+    border-radius: 50%;
+    position: fixed;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 99999;
+    /* Position is animated via RAF in JS, scale is transitioned here */
+    transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                height 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                background-color 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Hover/Expansion state for pointer followers */
+.custom-cursor-dot.hovered {
+    width: 8px;
+    height: 8px;
+    background-color: #ffffff;
+}
+
+.custom-cursor-outline.hovered {
+    width: 52px;
+    height: 52px;
+    background-color: rgba(212, 175, 55, 0.1);
+    border-color: #ffffff;
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.35);
+}
+
+/* Hide custom cursor on mobile/touch interfaces */
+@media (max-width: 1024px) {
+    .custom-cursor-dot, .custom-cursor-outline {
+        display: none !important;
+    }
+}
+
+/* 3D tilt target cards alignment */
+.profile-image-wrapper, .skill-item, .benefit-card, .testimonial-card, .case-study-card, .metric-card {
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+/* ==========================================================================
    PRICING DISCOUNT & PROMOTION UPGRADES
    ========================================================================== */
 .promo-badge {

@@ -1213,7 +1213,7 @@ Contact: affanrunsads@gmail.com
         requestAnimationFrame(updateOutlinePosition);
 
         // Hover expansions & glow interactions on elements
-        const hoverTargets = 'a, button, [role="button"], .filter-btn, .calc-range-output input, .skill-item, .benefit-card, .testimonial-card, .case-study-card, .metric-card, .country-selector-btn';
+        const hoverTargets = 'a, button, [role="button"], .filter-btn, .calc-range-output input, .skill-item, .benefit-card, .testimonial-card, .case-study-card, .metric-card, .country-selector-btn, .marquee-item';
 
         document.addEventListener('mouseover', (e) => {
             if (e.target.closest(hoverTargets)) {

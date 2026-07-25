@@ -1684,7 +1684,7 @@ body:not([data-country="usa"]) .usa-only {
 /* Output values section */
 .calc-results-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     gap: 1.25rem;
     margin-bottom: 2rem;
 }
@@ -1707,9 +1707,11 @@ body:not([data-country="usa"]) .usa-only {
     margin-bottom: 0.4rem;
 }
 .calc-result-value {
-    font-size: 1.35rem;
+    font-size: clamp(1rem, 4.5vw, 1.35rem);
     font-weight: 700;
     color: #fff;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
 }
 .calc-result-value.highlight-gold {
     color: var(--gold);
@@ -1733,6 +1735,25 @@ body:not([data-country="usa"]) .usa-only {
 }
 .calc-cta-container {
     margin-top: 1rem;
+}
+
+/* Responsive adjustments for premium calculator */
+@media (max-width: 480px) {
+    .calc-inputs-card, .calc-outputs-card {
+        padding: 1.25rem;
+    }
+    .calc-results-grid {
+        gap: 0.75rem;
+    }
+    .calc-result-item {
+        padding: 0.75rem;
+    }
+    .calc-result-value {
+        font-size: clamp(0.95rem, 4.2vw, 1.25rem);
+    }
+    .calc-result-item.full-width .calc-result-value {
+        font-size: clamp(1.1rem, 5vw, 1.35rem);
+    }
 }
 
 /* Premium Testimonial Carousel Styles */

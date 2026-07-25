@@ -1236,7 +1236,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     100% { transform: translate3d(-50%, 0, 0); }
 }
 
-/* Slide animation for sections with grid-mesh backgrounds */
+/* Slide animation for sections with grid-mesh backgrounds - disabled to prevent high repaint costs */
+/*
 @keyframes slide-grid {
     0% { background-position: 0px 0px; }
     100% { background-position: 400px 400px; }
@@ -1245,8 +1246,10 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     animation: slide-grid 100s linear infinite;
     will-change: background-position;
 }
+*/
 
-/* Elegant pulsating border-glows on card objects */
+/* Elegant pulsating border-glows on card objects - disabled to prevent continuous paint/layout recalculation on desktop when static */
+/*
 @keyframes border-glow-pulse {
     0%, 100% {
         border-color: rgba(212, 175, 55, 0.15);
@@ -1260,6 +1263,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .metric-card, .calc-inputs-card, .calc-outputs-card, .benefit-card, .testimonial-card, .skill-item, .success-card {
     animation: border-glow-pulse 7s infinite ease-in-out;
 }
+*/
 
 /* Pulsing multi-ring waves around profile image wrapper */
 @keyframes profile-ring-ripple {
@@ -1298,21 +1302,19 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     animation-delay: 1.5s;
 }
 
-/* Continuous premium breathing state for metrics values */
+/* Continuous premium breathing state for metrics values - modified to only use GPU-accelerated scale transform, avoiding text-shadow repaint thrashing */
 @keyframes text-glow-pulse {
     0%, 100% {
-        text-shadow: 0 0 5px rgba(212, 175, 55, 0.1);
         transform: scale(1);
     }
     50% {
-        text-shadow: 0 0 15px rgba(212, 175, 55, 0.45), 0 0 25px rgba(212, 175, 55, 0.2);
         transform: scale(1.02);
     }
 }
 .metric-value, .stat-number {
     display: inline-block;
     animation: text-glow-pulse 5s infinite ease-in-out;
-    will-change: transform, text-shadow;
+    will-change: transform;
 }
 
 /* Extra premium touch: rotating neon border trail on case-study elements */
@@ -1331,9 +1333,11 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     background-color: var(--gold);
     border-radius: 50%;
     position: fixed;
-    transform: translate(-50%, -50%);
+    top: 0;
+    left: 0;
     pointer-events: none;
     z-index: 100000;
+    will-change: transform;
     transition: width 0.25s cubic-bezier(0.16, 1, 0.3, 1), height 0.25s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.25s ease;
 }
 
@@ -1343,9 +1347,11 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     border: 1.5px solid var(--gold);
     border-radius: 50%;
     position: fixed;
-    transform: translate(-50%, -50%);
+    top: 0;
+    left: 0;
     pointer-events: none;
     z-index: 99999;
+    will-change: transform;
     /* Position is animated via RAF in JS, scale is transitioned here */
     transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1),
                 height 0.35s cubic-bezier(0.16, 1, 0.3, 1),

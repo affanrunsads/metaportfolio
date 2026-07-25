@@ -84,6 +84,7 @@ img { max-width: 100%; display: block; }
     transition: opacity 0.5s ease;
 }
 .preloader.hidden { opacity: 0; pointer-events: none; }
+.preloader.hidden .loader { animation: none !important; }
 .loader {
     width: 3rem; height: 3rem;
     border: 3px solid var(--gold-dark);
@@ -1312,19 +1313,9 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     animation-delay: 1.5s;
 }
 
-/* Continuous premium breathing state for metrics values - modified to only use GPU-accelerated scale transform, avoiding text-shadow repaint thrashing */
-@keyframes text-glow-pulse {
-    0%, 100% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.02);
-    }
-}
+/* Continuous premium breathing state for metrics values removed to optimize paint cycles and CPU load on low RAM machines */
 .metric-value, .stat-number {
     display: inline-block;
-    animation: text-glow-pulse 5s infinite ease-in-out;
-    will-change: transform;
 }
 
 /* Extra premium touch: rotating neon border trail on case-study elements */
@@ -1638,11 +1629,11 @@ body:not([data-country="usa"]) .usa-only {
     content: '';
     position: absolute;
     inset: 0;
-    background: radial-gradient(600px circle at var(--mouse-x, 0) var(--mouse-y, 0), rgba(212, 175, 55, 0.05), transparent 40%);
+    background: radial-gradient(circle at center, rgba(212, 175, 55, 0.08) 0%, transparent 70%);
     pointer-events: none;
     z-index: 1;
     opacity: 0;
-    transition: opacity 0.5s ease;
+    transition: opacity 0.4s ease;
 }
 .case-study-card:hover::before {
     opacity: 1;

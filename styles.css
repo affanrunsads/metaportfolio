@@ -2226,11 +2226,20 @@ body:not([data-country="usa"]) .usa-only {
 }
 
 /* Testimonials Page Grid & Anti-theft */
+.audio-testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    padding: 4rem var(--container-padding) 0;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
 .testimonials-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 2rem;
-    padding: 4rem var(--container-padding);
+    padding: 2rem var(--container-padding) 4rem;
     max-width: 1200px;
     margin: 0 auto;
 }

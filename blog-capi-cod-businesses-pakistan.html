@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>Advanced Conversion API (CAPI) Strategies for COD Businesses | Affan Runs Ads</title>
+    <meta name="description" content="How to use the Meta Conversions API (CAPI) to optimize ad delivery for actual delivered orders rather than just placed COD orders.">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="preloader"><div class="loader"></div></div>
+
+    <nav id="navbar">
+        <a href="index.html" class="logo">AFFAN RUNS ADS</a>
+        <div class="menu-toggle" onclick="toggleMenu()">
+            <span></span><span></span><span></span>
+        </div>
+        <div class="nav-right">
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html" onclick="closeMenu()">Home</a></li>
+                <li><a href="blog.html" class="active" onclick="closeMenu()">← Back to Blog</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main style="padding: 8rem var(--container-padding) 4rem; max-width: 800px; margin: 0 auto; color: #eee; line-height: 1.8;">
+        <span style="color: var(--gold); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; font-weight: bold;">Meta Pixel Data</span>
+        <h1 style="font-family: 'Playfair Display', serif; font-size: 2.5rem; margin: 1rem 0 2rem;">Advanced Conversion API (CAPI) Strategies for COD Businesses</h1>
+
+        <p style="margin-bottom: 1.5rem; font-size: 1.1rem; color: #ccc;">If you run a Cash on Delivery (COD) business, standard Meta Pixel tracking is flawed. The Pixel fires a "Purchase" event the moment someone clicks "Complete Order" on your website. Meta doesn't know if that order was actually paid for and delivered, or if it was a fake order that bounced back a week later.</p>
+
+        <h2 style="font-family: 'Playfair Display', serif; font-size: 1.8rem; margin: 2rem 0 1rem; color: var(--gold);">The Problem with "Garbage Data"</h2>
+        <p style="margin-bottom: 1.5rem;">If 25% of your orders are returns or fakes, you are essentially training Meta's machine learning algorithm with 25% garbage data. The algorithm will continue optimizing to find more people who click "Buy," regardless of their intent to actually receive the package.</p>
+
+        <h2 style="font-family: 'Playfair Display', serif; font-size: 1.8rem; margin: 2rem 0 1rem; color: var(--gold);">The Solution: Backend CAPI Integration</h2>
+
+        <p style="margin-bottom: 1.5rem;"><strong>1. Defining the Real Conversion Event:</strong> Stop relying solely on the browser-side pixel. You need to implement the Meta Conversions API (CAPI) to send data from your backend server directly to Meta's servers.</p>
+
+        <p style="margin-bottom: 1.5rem;"><strong>2. Sending "Delivered" Events:</strong> Instead of optimizing for the initial "Purchase," create a custom conversion event for "Order Delivered." When your courier portal marks an order as successfully delivered and cash collected, use tools like Zapier or custom API scripts to ping Meta via CAPI with this high-quality event.</p>
+
+        <p style="margin-bottom: 1.5rem;"><strong>3. Retraining the Algorithm:</strong> Once you accumulate enough "Order Delivered" events, duplicate your best campaigns and change the optimization goal from the standard "Purchase" to your new custom "Order Delivered" event. Meta will now hunt for users who share the behavioral traits of customers who actually accept and pay for their packages at the door.</p>
+    </main>
+
+    <footer>
+        <div class="footer-inner">
+            <span class="footer-logo">AFFAN RUNS ADS</span>
+            <p class="footer-text">© 2026 <span>Affan Runs Ads</span> — Muhammad Affan Khan. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

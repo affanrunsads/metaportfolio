@@ -1,11 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://affanrunsads.github.io/metaportfolio/</loc>
-    <priority>1.0</priority>
+    <loc>https://affanrunsads.github.io/metaportfolio/blog-logistics-delivery-challenges-pakistan.html</loc>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://affanrunsads.github.io/metaportfolio/about.html</loc>
+    <loc>https://affanrunsads.github.io/metaportfolio/blog-scaling-meta-ads.html</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://affanrunsads.github.io/metaportfolio/blog-scaling-despite-currency-devaluation-pakistan.html</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://affanrunsads.github.io/metaportfolio/testimonials.html</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://affanrunsads.github.io/metaportfolio/blog-cod-return-rates-pakistan.html</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://affanrunsads.github.io/metaportfolio/blog-capi-cod-businesses-pakistan.html</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -13,7 +29,43 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://affanrunsads.github.io/metaportfolio/case-studies.html</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://affanrunsads.github.io/metaportfolio/about.html</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://affanrunsads.github.io/metaportfolio/blog.html</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://affanrunsads.github.io/metaportfolio/contact.html</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://affanrunsads.github.io/metaportfolio/blog-optimizing-meta-ads-low-aov-pakistan.html</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://affanrunsads.github.io/metaportfolio/simulator.html</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://affanrunsads.github.io/metaportfolio/blog-creative-testing.html</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://affanrunsads.github.io/metaportfolio/blog-building-trust-prepayment-pakistan.html</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://affanrunsads.github.io/metaportfolio/</loc>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://affanrunsads.github.io/metaportfolio/blog-cbo-vs-abo.html</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -21,7 +73,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://affanrunsads.github.io/metaportfolio/contact.html</loc>
-    <priority>0.6</priority>
+    <loc>https://affanrunsads.github.io/metaportfolio/services.html</loc>
+    <priority>0.8</priority>
   </url>
 </urlset>

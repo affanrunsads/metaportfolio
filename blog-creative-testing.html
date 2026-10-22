@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>Framework for Continuous Creative Testing | Affan Runs Ads</title>
+    <meta name="description" content="A robust framework for continuous creative testing to overcome ad fatigue on Meta platforms.">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="preloader"><div class="loader"></div></div>
+
+    <nav id="navbar">
+        <a href="index.html" class="logo">AFFAN RUNS ADS</a>
+        <div class="menu-toggle" onclick="toggleMenu()">
+            <span></span><span></span><span></span>
+        </div>
+        <div class="nav-right">
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html" onclick="closeMenu()">Home</a></li>
+                <li><a href="blog.html" class="active" onclick="closeMenu()">← Back to Blog</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main style="padding: 8rem var(--container-padding) 4rem; max-width: 800px; margin: 0 auto; color: #eee; line-height: 1.8;">
+        <span style="color: var(--gold); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; font-weight: bold;">Creative</span>
+        <h1 style="font-family: 'Playfair Display', serif; font-size: 2.5rem; margin: 1rem 0 2rem;">Framework for Continuous Creative Testing</h1>
+
+        <p style="margin-bottom: 1.5rem; font-size: 1.1rem; color: #ccc;">On Meta Ads today, targeting is largely automated. The algorithm knows who will buy your product better than you do. The real variable that dictates success is your <strong>creative</strong>. If you aren't constantly testing new creatives, ad fatigue will eventually destroy your ROAS.</p>
+
+        <h2 style="font-family: 'Playfair Display', serif; font-size: 1.8rem; margin: 2rem 0 1rem; color: var(--gold);">The 3-Tier Testing Framework</h2>
+        <p style="margin-bottom: 1.5rem;">To avoid creative burnout, we employ a 3-tier testing framework. This ensures a steady pipeline of winning ads.</p>
+
+        <ul style="margin-bottom: 1.5rem; padding-left: 1.5rem; list-style-type: square; color: #ccc;">
+            <li style="margin-bottom: 0.5rem;"><strong>Tier 1: The Angle Test.</strong> We launch drastically different messaging angles (e.g., Logical vs Emotional vs Status). We use simple image or text formats to keep production costs low. The goal is to see which hook gets the highest CTR and lowest CPC.</li>
+            <li style="margin-bottom: 0.5rem;"><strong>Tier 2: The Format Test.</strong> Once an angle wins, we adapt it into different formats: User Generated Content (UGC), high-production video, carousel, and static image. This determines how the audience prefers to consume the winning message.</li>
+            <li style="margin-bottom: 0.5rem;"><strong>Tier 3: The Iteration Test.</strong> We take the winning format and iterate on the micro-elements. We test the first 3 seconds of the video (the hook), the thumbnail, the headline, and the call to action. </li>
+        </ul>
+
+        <h2 style="font-family: 'Playfair Display', serif; font-size: 1.8rem; margin: 2rem 0 1rem; color: var(--gold);">Managing Ad Fatigue</h2>
+        <p style="margin-bottom: 1.5rem;">Even the best ads fatigue. Monitor your Frequency metric. When frequency climbs above 3 over a 7-day period and your CPA begins to spike, it's time to cycle out the creative. Because you have been running your 3-Tier framework in the background, you will always have a new, proven ad ready to take its place.</p>
+    </main>
+
+    <footer>
+        <div class="footer-inner">
+            <span class="footer-logo">AFFAN RUNS ADS</span>
+            <p class="footer-text">© 2026 <span>Affan Runs Ads</span> — Muhammad Affan Khan. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

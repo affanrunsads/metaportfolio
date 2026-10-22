@@ -2224,3 +2224,72 @@ body:not([data-country="usa"]) .usa-only {
     opacity: 1;
     visibility: visible;
 }
+
+/* Testimonials Page Grid & Anti-theft */
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    padding: 4rem var(--container-padding);
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.testimonial-card {
+    position: relative;
+    background: var(--black-light);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1rem;
+    overflow: hidden;
+}
+
+.testimonial-image-container {
+    position: relative;
+    width: 100%;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.testimonial-image-container img {
+    width: 100%;
+    display: block;
+    /* Anti-theft */
+    pointer-events: none;
+    -webkit-user-drag: none;
+    user-select: none;
+}
+
+/* Watermark Overlay */
+.watermark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-30deg);
+    color: rgba(255, 255, 255, 0.2);
+    font-size: 2rem;
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    pointer-events: none; /* Let clicks pass through if needed */
+    white-space: nowrap;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+    z-index: 10;
+}
+
+/* Scroll Reveal Animations */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+}
+
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 3D Tilt Effect Utilities */
+.tilt-card {
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+    transform-style: preserve-3d;
+}

@@ -22,6 +22,47 @@ window.addEventListener('load', () => {
     if (pre) setTimeout(() => pre.classList.add('hidden'), 500);
 });
 
+// Scroll Reveal & 3D Tilt Animations
+document.addEventListener('DOMContentLoaded', () => {
+    // Scroll Reveal
+    const reveals = document.querySelectorAll('.reveal');
+    if (reveals.length > 0) {
+        const revealOptions = { threshold: 0.15, rootMargin: "0px 0px -50px 0px" };
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, revealOptions);
+        reveals.forEach(reveal => revealObserver.observe(reveal));
+    }
+
+    // 3D Tilt Effect
+    const tiltCards = document.querySelectorAll('.metric-card, .calc-inputs-card, .calc-outputs-card');
+    tiltCards.forEach(card => {
+        card.classList.add('tilt-card');
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+
+            const rotateX = ((y - centerY) / centerY) * -5;
+            const rotateY = ((x - centerX) / centerX) * 5;
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        });
+
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg)`;
+            card.style.transition = 'transform 0.5s ease';
+            setTimeout(() => card.style.transition = 'transform 0.1s ease', 500);
+        });
+    });
+});
+
 // Theme toggle button setup
 document.addEventListener('DOMContentLoaded', () => {
     const toggleBtns = document.querySelectorAll('.theme-toggle-btn');
@@ -316,6 +357,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const calcConvNum = document.getElementById('calc-conv');
     const calcAovRange = document.getElementById('calc-aov-range');
     const calcAovNum = document.getElementById('calc-aov');
+    const calcMarginRange = document.getElementById('calc-margin-range');
+    const calcMarginNum = document.getElementById('calc-margin');
 
     if (calcBudgetRange && calcBudgetNum) {
         const resClicks = document.getElementById('res-clicks');
@@ -331,11 +374,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const storedCpc = localStorage.getItem('calc_cpc');
         const storedConv = localStorage.getItem('calc_conv');
         const storedAov = localStorage.getItem('calc_aov');
+        const storedMargin = localStorage.getItem('calc_margin');
 
         if (storedBudget) { calcBudgetNum.value = storedBudget; calcBudgetRange.value = storedBudget; }
         if (storedCpc) { calcCpcNum.value = storedCpc; calcCpcRange.value = storedCpc; }
         if (storedConv) { calcConvNum.value = storedConv; calcConvRange.value = storedConv; }
         if (storedAov) { calcAovNum.value = storedAov; calcAovRange.value = storedAov; }
+        if (storedMargin && calcMarginNum && calcMarginRange) { calcMarginNum.value = storedMargin; calcMarginRange.value = storedMargin; }
 
         function formatCurrency(val) {
             const isNegative = val < 0;
@@ -367,12 +412,14 @@ document.addEventListener('DOMContentLoaded', () => {
             const cpc = parseFloat(calcCpcNum.value) || 0.01; // Avoid divide by zero
             const conv = parseFloat(calcConvNum.value) || 0;
             const aov = parseFloat(calcAovNum.value) || 0;
+            const margin = parseFloat(calcMarginNum ? calcMarginNum.value : 0) || 0;
 
             const clicks = budget / cpc;
             const purchases = clicks * (conv / 100);
             const revenue = purchases * aov;
             const roas = budget > 0 ? (revenue / budget) : 0;
-            const profit = revenue - budget;
+            const cogsValue = revenue * (margin / 100);
+            const profit = revenue - budget - cogsValue;
 
             if (resClicks) resClicks.textContent = formatNumber(clicks);
             if (resPurchases) resPurchases.textContent = formatNumber(purchases);
@@ -394,6 +441,7 @@ document.addEventListener('DOMContentLoaded', () => {
             localStorage.setItem('calc_cpc', cpc);
             localStorage.setItem('calc_conv', conv);
             localStorage.setItem('calc_aov', aov);
+            localStorage.setItem('calc_margin', margin);
 
             // Update Visual Progress Bar
             const calcEfficiencyBar = document.getElementById('calcEfficiencyBar');
@@ -441,6 +489,9 @@ document.addEventListener('DOMContentLoaded', () => {
         setupSyncedInputs(calcCpcRange, calcCpcNum);
         setupSyncedInputs(calcConvRange, calcConvNum);
         setupSyncedInputs(calcAovRange, calcAovNum);
+        if (calcMarginRange && calcMarginNum) {
+            setupSyncedInputs(calcMarginRange, calcMarginNum);
+        }
 
         // Export Report Handler
         if (exportBtn) {

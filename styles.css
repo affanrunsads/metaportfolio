@@ -84,7 +84,6 @@ img { max-width: 100%; display: block; }
     transition: opacity 0.5s ease;
 }
 .preloader.hidden { opacity: 0; pointer-events: none; }
-.preloader.hidden .loader { animation: none !important; }
 .loader {
     width: 3rem; height: 3rem;
     border: 3px solid var(--gold-dark);
@@ -654,11 +653,6 @@ footer { background: var(--black); padding: 3rem 1rem 2rem; text-align: center; 
 
 /* Particles - Hidden on desktop to prevent constant rendering loop lag */
 .particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
-@media (min-width: 1024px) {
-    .particles {
-        display: none !important;
-    }
-}
 .particle { position: absolute; width: 4px; height: 4px; background: var(--gold); border-radius: 50%; opacity: 0.3; animation: float-particle 10s infinite; }
 @keyframes float-particle {
     0%, 100% { transform: translateY(0) translateX(0); opacity: 0; }
@@ -1115,11 +1109,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     opacity: 0.65;
     transition: opacity 0.5s ease;
 }
-@media (min-width: 1024px) {
-    .bg-glow-orb-container {
-        display: none !important;
-    }
-}
 [data-theme="light"] .bg-glow-orb-container {
     opacity: 0.35;
 }
@@ -1248,7 +1237,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 }
 
 /* Slide animation for sections with grid-mesh backgrounds - disabled to prevent high repaint costs */
-/*
 @keyframes slide-grid {
     0% { background-position: 0px 0px; }
     100% { background-position: 400px 400px; }
@@ -1257,10 +1245,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     animation: slide-grid 100s linear infinite;
     will-change: background-position;
 }
-*/
 
 /* Elegant pulsating border-glows on card objects - disabled to prevent continuous paint/layout recalculation on desktop when static */
-/*
 @keyframes border-glow-pulse {
     0%, 100% {
         border-color: rgba(212, 175, 55, 0.15);
@@ -1274,7 +1260,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .metric-card, .calc-inputs-card, .calc-outputs-card, .benefit-card, .testimonial-card, .skill-item, .success-card {
     animation: border-glow-pulse 7s infinite ease-in-out;
 }
-*/
 
 /* Pulsing multi-ring waves around profile image wrapper */
 @keyframes profile-ring-ripple {
@@ -1313,9 +1298,18 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     animation-delay: 1.5s;
 }
 
-/* Continuous premium breathing state for metrics values removed to optimize paint cycles and CPU load on low RAM machines */
+/* Continuous premium breathing state for metrics values */
+@keyframes text-glow-pulse {
+    0%, 100% {
+        text-shadow: 0 0 5px rgba(212, 175, 55, 0.2), 0 0 10px rgba(212, 175, 55, 0.1);
+    }
+    50% {
+        text-shadow: 0 0 15px rgba(212, 175, 55, 0.6), 0 0 25px rgba(212, 175, 55, 0.3);
+    }
+}
 .metric-value, .stat-number {
     display: inline-block;
+    animation: text-glow-pulse 3s infinite ease-in-out;
 }
 
 /* Extra premium touch: rotating neon border trail on case-study elements */
@@ -1629,7 +1623,7 @@ body:not([data-country="usa"]) .usa-only {
     content: '';
     position: absolute;
     inset: 0;
-    background: radial-gradient(circle at center, rgba(212, 175, 55, 0.08) 0%, transparent 70%);
+    background: radial-gradient(800px circle at var(--mouse-x, center) var(--mouse-y, center), rgba(212, 175, 55, 0.15) 0%, transparent 40%);
     pointer-events: none;
     z-index: 1;
     opacity: 0;

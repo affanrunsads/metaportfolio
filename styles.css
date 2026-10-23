@@ -1096,73 +1096,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
    ADVANCED PREMIUM LOOPED ANIMATIONS — JULES UPGRADE
    ========================================================================== */
 
-/* GPU-Accelerated Background Glowing Orbs - Hidden on desktop to avoid massive repaint/compositing lag on large screens */
-.bg-glow-orb-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    pointer-events: none;
-    z-index: -1;
-    overflow: hidden;
-    opacity: 0.65;
-    transition: opacity 0.5s ease;
-}
-[data-theme="light"] .bg-glow-orb-container {
-    opacity: 0.35;
-}
-.bg-glow-orb {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(120px);
-    -webkit-filter: blur(120px);
-    will-change: transform;
-    mix-blend-mode: screen;
-}
-[data-theme="light"] .bg-glow-orb {
-    mix-blend-mode: multiply;
-}
-.bg-glow-orb-1 {
-    top: -10%;
-    left: -10%;
-    width: 60vw;
-    height: 60vw;
-    background: radial-gradient(circle, rgba(212, 175, 55, 0.16) 0%, transparent 75%);
-    animation: float-orb-1 25s infinite alternate ease-in-out;
-}
-.bg-glow-orb-2 {
-    bottom: -15%;
-    right: -10%;
-    width: 70vw;
-    height: 70vw;
-    background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
-    animation: float-orb-2 35s infinite alternate ease-in-out;
-}
-.bg-glow-orb-3 {
-    top: 40%;
-    left: 30%;
-    width: 50vw;
-    height: 50vw;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, transparent 70%);
-    animation: float-orb-3 30s infinite alternate ease-in-out;
-}
-
-@keyframes float-orb-1 {
-    0% { transform: translate3d(0, 0, 0) scale(1); }
-    50% { transform: translate3d(10vw, 8vh, 0) scale(1.15); }
-    100% { transform: translate3d(-5vw, 15vh, 0) scale(0.9); }
-}
-@keyframes float-orb-2 {
-    0% { transform: translate3d(0, 0, 0) scale(0.95); }
-    50% { transform: translate3d(-8vw, -12vh, 0) scale(1.1); }
-    100% { transform: translate3d(8vw, 6vh, 0) scale(1); }
-}
-@keyframes float-orb-3 {
-    0% { transform: translate3d(0, 0, 0) scale(1); }
-    50% { transform: translate3d(-12vw, 12vh, 0) scale(0.85); }
-    100% { transform: translate3d(4vw, -8vh, 0) scale(1.05); }
-}
 
 /* Infinite Horizontal Marquee Ticker */
 .marquee-container {
@@ -1236,80 +1169,11 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     100% { transform: translate3d(-50%, 0, 0); }
 }
 
-/* Slide animation for sections with grid-mesh backgrounds - disabled to prevent high repaint costs */
-@keyframes slide-grid {
-    0% { background-position: 0px 0px; }
-    100% { background-position: 400px 400px; }
-}
-.about, .mentorship-teaser, .ads-calculator-section, .experience, .reels-preview, .case-studies-hub {
-    animation: slide-grid 100s linear infinite;
-    will-change: background-position;
-}
 
-/* Elegant pulsating border-glows on card objects - disabled to prevent continuous paint/layout recalculation on desktop when static */
-@keyframes border-glow-pulse {
-    0%, 100% {
-        border-color: rgba(212, 175, 55, 0.15);
-        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5), 0 0 0px rgba(212, 175, 55, 0);
-    }
-    50% {
-        border-color: rgba(212, 175, 55, 0.45);
-        box-shadow: 0 8px 35px rgba(0, 0, 0, 0.6), 0 0 15px rgba(212, 175, 55, 0.12);
-    }
-}
-.metric-card, .calc-inputs-card, .calc-outputs-card, .benefit-card, .testimonial-card, .skill-item, .success-card {
-    animation: border-glow-pulse 7s infinite ease-in-out;
-}
 
-/* Pulsing multi-ring waves around profile image wrapper */
-@keyframes profile-ring-ripple {
-    0% {
-        transform: translate(-50%, -50%) scale(1);
-        opacity: 0.5;
-    }
-    100% {
-        transform: translate(-50%, -50%) scale(1.35);
-        opacity: 0;
-    }
-}
-.profile-image-wrapper::before {
-    content: '';
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%; height: 100%;
-    border-radius: 50%;
-    border: 1px solid var(--gold);
-    pointer-events: none;
-    z-index: 1;
-    animation: profile-ring-ripple 3s infinite cubic-bezier(0.1, 0.8, 0.3, 1);
-}
-.profile-image-wrapper::after {
-    content: '';
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%; height: 100%;
-    border-radius: 50%;
-    border: 1px solid var(--gold-light);
-    pointer-events: none;
-    z-index: 1;
-    animation: profile-ring-ripple 3s infinite cubic-bezier(0.1, 0.8, 0.3, 1);
-    animation-delay: 1.5s;
-}
 
-/* Continuous premium breathing state for metrics values */
-@keyframes text-glow-pulse {
-    0%, 100% {
-        text-shadow: 0 0 5px rgba(212, 175, 55, 0.2), 0 0 10px rgba(212, 175, 55, 0.1);
-    }
-    50% {
-        text-shadow: 0 0 15px rgba(212, 175, 55, 0.6), 0 0 25px rgba(212, 175, 55, 0.3);
-    }
-}
 .metric-value, .stat-number {
     display: inline-block;
-    animation: text-glow-pulse 3s infinite ease-in-out;
 }
 
 /* Extra premium touch: rotating neon border trail on case-study elements */
@@ -1317,72 +1181,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     border: 1px solid rgba(212, 175, 55, 0.15) !important;
 }
 
-/* ==========================================================================
-   CUSTOM PREMIUM CURSOR & 3D TILT EFFECT DECK
-   ========================================================================== */
-
-/* Custom premium cursor styles */
-.custom-cursor-dot {
-    width: 6px;
-    height: 6px;
-    background-color: var(--gold);
-    border-radius: 50%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    pointer-events: none;
-    z-index: 100000;
-    will-change: transform;
-    transition: width 0.25s cubic-bezier(0.16, 1, 0.3, 1), height 0.25s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.25s ease;
-}
-
-.custom-cursor-outline {
-    width: 32px;
-    height: 32px;
-    border: 1.5px solid var(--gold);
-    border-radius: 50%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    pointer-events: none;
-    z-index: 99999;
-    will-change: transform;
-    /* Position is animated via RAF in JS, scale is transitioned here */
-    transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-                height 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-                background-color 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-                border-color 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-                box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-/* Hover/Expansion state for pointer followers */
-.custom-cursor-dot.hovered {
-    width: 8px;
-    height: 8px;
-    background-color: #ffffff;
-}
-
-.custom-cursor-outline.hovered {
-    width: 52px;
-    height: 52px;
-    background-color: rgba(212, 175, 55, 0.1);
-    border-color: #ffffff;
-    box-shadow: 0 0 20px rgba(212, 175, 55, 0.35);
-}
-
-/* Hide custom cursor on mobile/touch interfaces */
-@media (max-width: 1024px) {
-    .custom-cursor-dot, .custom-cursor-outline {
-        display: none !important;
-    }
-}
-
-/* 3D tilt target cards alignment */
-.profile-image-wrapper, .skill-item, .benefit-card, .testimonial-card, .case-study-card, .metric-card {
-    transform-style: preserve-3d;
-    perspective: 1000px;
-    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease, box-shadow 0.4s ease;
-}
 
 /* ==========================================================================
    PRICING DISCOUNT & PROMOTION UPGRADES
@@ -1619,19 +1417,6 @@ body:not([data-country="usa"]) .usa-only {
     position: relative;
     overflow: hidden;
 }
-.case-study-card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(800px circle at var(--mouse-x, center) var(--mouse-y, center), rgba(212, 175, 55, 0.15) 0%, transparent 40%);
-    pointer-events: none;
-    z-index: 1;
-    opacity: 0;
-    transition: opacity 0.4s ease;
-}
-.case-study-card:hover::before {
-    opacity: 1;
-}
 .case-study-card:hover {
     transform: translateY(-6px) scale(1.01);
     border-color: var(--gold) !important;
@@ -1657,14 +1442,6 @@ body:not([data-country="usa"]) .usa-only {
     padding: 0 1.5rem 1.5rem 1.5rem !important;
 }
 
-/* Premium micro-interactions: Neon Grid/Mesh Background Effect on specific sections */
-.about, .mentorship-teaser, .ads-calculator-section, .experience, .reels-preview, .case-studies-hub {
-    background-image:
-        linear-gradient(rgba(212, 175, 55, 0.015) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(212, 175, 55, 0.015) 1px, transparent 1px);
-    background-size: 40px 40px;
-    background-position: center;
-}
 
 /* Enhanced glow states */
 .skill-item:hover, .benefit-card:hover, .timeline-content:hover {
@@ -2291,8 +2068,3 @@ body:not([data-country="usa"]) .usa-only {
     transform: translateY(0);
 }
 
-/* 3D Tilt Effect Utilities */
-.tilt-card {
-    transition: transform 0.1s ease, box-shadow 0.1s ease;
-    transform-style: preserve-3d;
-}

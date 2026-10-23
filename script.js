@@ -39,28 +39,6 @@ document.addEventListener('DOMContentLoaded', () => {
         reveals.forEach(reveal => revealObserver.observe(reveal));
     }
 
-    // 3D Tilt Effect
-    const tiltCards = document.querySelectorAll('.metric-card, .calc-inputs-card, .calc-outputs-card, .profile-image-wrapper, .skill-item, .benefit-card, .testimonial-card, .case-study-card');
-    tiltCards.forEach(card => {
-        card.classList.add('tilt-card');
-        card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-
-            const rotateX = ((y - centerY) / centerY) * -5;
-            const rotateY = ((x - centerX) / centerX) * 5;
-            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-        });
-
-        card.addEventListener('mouseleave', () => {
-            card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg)`;
-            card.style.transition = 'transform 0.5s ease';
-            setTimeout(() => card.style.transition = 'transform 0.1s ease', 500);
-        });
-    });
 });
 
 // Theme toggle button setup
@@ -156,18 +134,6 @@ document.querySelectorAll(
     '.section-header, .about-text, .skills-grid, .metrics, .timeline, .contact-links, .reels-grid, .reels-preview-grid, .benefits-grid, .testimonials-carousel-container, .contact-form'
 ).forEach(el => observer.observe(el));
 
-// Floating particles - only generated on mobile/tablet viewports to avoid overhead on desktop
-const particlesContainer = document.getElementById('particles');
-if (particlesContainer && window.innerWidth < 1024) {
-    for (let i = 0; i < 30; i++) {
-        const particle = document.createElement('div');
-        particle.className = 'particle';
-        particle.style.left = Math.random() * 100 + '%';
-        particle.style.animationDelay = Math.random() * 10 + 's';
-        particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
-        particlesContainer.appendChild(particle);
-    }
-}
 
 // Smooth scroll for in-page anchor links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -1013,16 +979,6 @@ Contact: affanrunsads@gmail.com
         });
     }
 
-    // Premium Mouse Tracer Highlights
-    document.querySelectorAll('.case-study-card').forEach(card => {
-        card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            card.style.setProperty('--mouse-x', `${x}px`);
-            card.style.setProperty('--mouse-y', `${y}px`);
-        });
-    });
 
     // ==========================================================================
     // Country Localization Engine (JULES)
@@ -1217,63 +1173,5 @@ Contact: affanrunsads@gmail.com
         });
     }
 
-    // Custom cursor removed for low RAM desktop performance optimization
-
-    // Custom Cursor Logic
-    const cursorDot = document.createElement('div');
-    cursorDot.className = 'custom-cursor-dot';
-    document.body.appendChild(cursorDot);
-
-    const cursorOutline = document.createElement('div');
-    cursorOutline.className = 'custom-cursor-outline';
-    document.body.appendChild(cursorOutline);
-
-    let mouseX = 0;
-    let mouseY = 0;
-    let outlineX = 0;
-    let outlineY = 0;
-
-    window.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-
-        // Instant dot follow
-        cursorDot.style.transform = `translate(${mouseX - 3}px, ${mouseY - 3}px)`;
-    });
-
-    function animateCursorOutline() {
-        // Smooth easing for outline
-        let distX = mouseX - outlineX;
-        let distY = mouseY - outlineY;
-
-        outlineX = outlineX + (distX * 0.15);
-        outlineY = outlineY + (distY * 0.15);
-
-        // Dynamic centering offset based on hover state (52px/2 vs 32px/2)
-        let offset = cursorOutline.classList.contains('hovered') ? 26 : 16;
-        cursorOutline.style.transform = `translate(${outlineX - offset}px, ${outlineY - offset}px)`;
-
-        requestAnimationFrame(animateCursorOutline);
-    }
-
-    // Start animation loop if not on mobile/touch
-    if (window.matchMedia("(min-width: 1025px)").matches) {
-        animateCursorOutline();
-    }
-
-    // Add hovered state classes
-    const interactables = document.querySelectorAll('a, button, input, textarea, select, .reel-card, .faq-toggle, .tilt-card, .testimonial-card, .country-modal-btn');
-
-    interactables.forEach(el => {
-        el.addEventListener('mouseenter', () => {
-            cursorDot.classList.add('hovered');
-            cursorOutline.classList.add('hovered');
-        });
-
-        el.addEventListener('mouseleave', () => {
-            cursorDot.classList.remove('hovered');
-            cursorOutline.classList.remove('hovered');
-        });
-    });
 
 });

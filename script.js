@@ -43,16 +43,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const tiltCards = document.querySelectorAll('.metric-card, .calc-inputs-card, .calc-outputs-card, .profile-image-wrapper, .skill-item, .benefit-card, .testimonial-card, .case-study-card');
     tiltCards.forEach(card => {
         card.classList.add('tilt-card');
+        let mouseMoveTicking = false;
         card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
+            if (!mouseMoveTicking) {
+                window.requestAnimationFrame(() => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
 
-            const rotateX = ((y - centerY) / centerY) * -5;
-            const rotateY = ((x - centerX) / centerX) * 5;
-            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                    const rotateX = ((y - centerY) / centerY) * -5;
+                    const rotateY = ((x - centerX) / centerX) * 5;
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                    mouseMoveTicking = false;
+                });
+                mouseMoveTicking = true;
+            }
         });
 
         card.addEventListener('mouseleave', () => {
@@ -87,19 +94,33 @@ document.addEventListener('DOMContentLoaded', () => {
     progressContainer.appendChild(progressBar);
     document.body.prepend(progressContainer);
 
+    let progressTicking = false;
     window.addEventListener('scroll', () => {
-        const scrollTop = window.scrollY;
-        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-        const scrolled = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-        progressBar.style.width = scrolled + '%';
+        if (!progressTicking) {
+            window.requestAnimationFrame(() => {
+                const scrollTop = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const scrolled = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+                progressBar.style.width = scrolled + '%';
+                progressTicking = false;
+            });
+            progressTicking = true;
+        }
     });
 });
 
 // Navigation scroll effect
 const navbar = document.getElementById('navbar');
 if (navbar) {
+    let navTicking = false;
     window.addEventListener('scroll', () => {
-        navbar.classList.toggle('scrolled', window.scrollY > 50);
+        if (!navTicking) {
+            window.requestAnimationFrame(() => {
+                navbar.classList.toggle('scrolled', window.scrollY > 50);
+                navTicking = false;
+            });
+            navTicking = true;
+        }
     });
 }
 
@@ -997,11 +1018,18 @@ Contact: affanrunsads@gmail.com
     // ==========================================================================
     const backToTopBtn = document.getElementById('backToTop');
     if (backToTopBtn) {
+        let backToTopTicking = false;
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 400) {
-                backToTopBtn.classList.add('visible');
-            } else {
-                backToTopBtn.classList.remove('visible');
+            if (!backToTopTicking) {
+                window.requestAnimationFrame(() => {
+                    if (window.scrollY > 400) {
+                        backToTopBtn.classList.add('visible');
+                    } else {
+                        backToTopBtn.classList.remove('visible');
+                    }
+                    backToTopTicking = false;
+                });
+                backToTopTicking = true;
             }
         });
 
@@ -1015,12 +1043,19 @@ Contact: affanrunsads@gmail.com
 
     // Premium Mouse Tracer Highlights
     document.querySelectorAll('.case-study-card').forEach(card => {
+        let mouseTracerTicking = false;
         card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            card.style.setProperty('--mouse-x', `${x}px`);
-            card.style.setProperty('--mouse-y', `${y}px`);
+            if (!mouseTracerTicking) {
+                window.requestAnimationFrame(() => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    card.style.setProperty('--mouse-x', `${x}px`);
+                    card.style.setProperty('--mouse-y', `${y}px`);
+                    mouseTracerTicking = false;
+                });
+                mouseTracerTicking = true;
+            }
         });
     });
 

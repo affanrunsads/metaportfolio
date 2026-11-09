@@ -1232,13 +1232,20 @@ Contact: affanrunsads@gmail.com
     let mouseY = 0;
     let outlineX = 0;
     let outlineY = 0;
+    let dotTicking = false;
 
     window.addEventListener('mousemove', (e) => {
         mouseX = e.clientX;
         mouseY = e.clientY;
 
-        // Instant dot follow
-        cursorDot.style.transform = `translate(${mouseX - 3}px, ${mouseY - 3}px)`;
+        if (!dotTicking) {
+            window.requestAnimationFrame(() => {
+                // Instant dot follow
+                cursorDot.style.transform = `translate(${mouseX - 3}px, ${mouseY - 3}px)`;
+                dotTicking = false;
+            });
+            dotTicking = true;
+        }
     });
 
     function animateCursorOutline() {
